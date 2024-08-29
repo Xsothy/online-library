@@ -3,10 +3,14 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
-import { User } from '@/types';
+import {Link, router} from '@inertiajs/react';
+import UserData = App.Data.UserData;
 
-export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
+export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: UserData|null, header?: ReactNode }>) {
+    if (!user) {
+        throw new Error('User is not defined');
+    }
+
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (

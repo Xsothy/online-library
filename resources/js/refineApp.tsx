@@ -1,4 +1,4 @@
-import {Authenticated, GitHubBanner, Refine, RefineProps,} from "@refinedev/core";
+import {Authenticated, Refine, RefineProps,} from "@refinedev/core";
 import {DevtoolsPanel, DevtoolsProvider} from "@refinedev/devtools";
 import {AntdInferencer} from "@refinedev/inferencer/antd";
 
@@ -22,9 +22,13 @@ import {ForgotPassword} from "@/Pages/forgotPassword";
 import {Login} from "@/Pages/login";
 import {Register} from "@/Pages/register";
 import { useConfig } from "@/utils/hook/useConfig";
-import {usePage} from "@inertiajs/react";
-import {PageProps} from "@/types";
-
+import {
+    DevToolsContext,
+    DevtoolsEvent,
+    send,
+} from "@refinedev/devtools-shared";
+import React from "react";
+import ApplicationLogo from "@/Components/ApplicationLogo";
 function App()
 {
     const resources: RefineProps["resources"] = [
@@ -42,11 +46,11 @@ function App()
     const config = useConfig()
     return (
         <BrowserRouter>
-            <GitHubBanner/>
             <ColorModeContextProvider>
                 <AntdApp>
                     <DevtoolsProvider>
                         <Refine
+
                             dataProvider={dataProvider(
                                 config.app.url
                             )}
@@ -61,7 +65,7 @@ function App()
                                 projectId: "T7q5HK-KVTQv3-PEDhO5",
                                 title: {
                                     text: config.app.name,
-                                    icon: <AppIcon/>,
+                                    icon: <ApplicationLogo />,
                                 },
                             }}
                         >
@@ -92,7 +96,7 @@ function App()
                                     <Route
                                         index
                                         element={
-                                            <NavigateToResource resource="blog_posts"/>
+                                            <NavigateToResource resource="users"/>
                                         }
                                     />
                                     <Route path="/admin/users">
@@ -130,15 +134,15 @@ function App()
                                     }
                                 >
                                     <Route
-                                        path="/login"
+                                        path="admin/login"
                                         element={<Login/>}
                                     />
                                     <Route
-                                        path="/register"
+                                        path="admin/register"
                                         element={<Register/>}
                                     />
                                     <Route
-                                        path="/forgot-password"
+                                        path="admin/forgot-password"
                                         element={<ForgotPassword/>}
                                     />
                                 </Route>
@@ -146,7 +150,7 @@ function App()
                             <UnsavedChangesNotifier/>
                             <DocumentTitleHandler/>
                         </Refine>
-                        <DevtoolsPanel/>
+                        <DevtoolsPanel />
                     </DevtoolsProvider>
                 </AntdApp>
             </ColorModeContextProvider>

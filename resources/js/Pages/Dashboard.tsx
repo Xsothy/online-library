@@ -3,6 +3,9 @@ import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
 
 export default function Dashboard({ auth }: PageProps) {
+    if (!auth.user) {
+        return null;
+    }
     return (
         <AuthenticatedLayout
             user={auth.user}

@@ -9,7 +9,9 @@ import { PageProps } from '@/types';
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }: { mustVerifyEmail: boolean, status?: string, className?: string }) {
     const user = usePage<PageProps>().props.auth.user;
-
+    if (!user) {
+        throw new Error('User is not defined');
+    }
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
         name: user.name,
         email: user.email,
@@ -64,7 +66,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     <InputError className="mt-2" message={errors.email} />
                 </div>
 
-                {mustVerifyEmail && user.email_verified_at === null && (
+                {mustVerifyEmail && user.emailVerifiedAt === null && (
                     <div>
                         <p className="text-sm mt-2 text-gray-800">
                             Your email address is unverified.

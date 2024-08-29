@@ -1,8 +1,3 @@
-export interface User {
-    id: number;
-    name: string;
-    email: string;
-    email_verified_at: string;
-}
+export interface User extends App.Data.UserData {}
 
-export type PageProps = App.Data.ShareData;
+export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & App.Data.ShareData;
