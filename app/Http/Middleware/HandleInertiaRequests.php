@@ -2,8 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Data\AuthData;
+use App\Data\Config\AppConfigData;
+use App\Data\ConfigData;
+use App\Data\ShareData;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Spatie\LaravelData\Optional;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -29,11 +34,10 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $shareData = ShareData::fromRequest($request)->toArray();
         return [
             ...parent::share($request),
-            'auth' => [
-                'user' => $request->user(),
-            ],
+            ...$shareData
         ];
     }
 }

@@ -34,12 +34,12 @@ export default function Admin({
         }
     };
 
-    // navigateTo()
+    navigateTo()
 
     return (
         <React.StrictMode>
             <Head title={"Refine App"} />
-            <App resource={resource} action={action} id={id} />
+            <App />
         </React.StrictMode>
     );
 }
