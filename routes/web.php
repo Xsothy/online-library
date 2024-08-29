@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::get("/admin/{resource?}/{action?}/{id?}", [AdminController::class, 'index']);
 
+Route::resource('users', \App\Http\Controllers\UserController::class);
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

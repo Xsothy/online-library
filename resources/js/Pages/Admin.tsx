@@ -1,18 +1,22 @@
-import React from 'react'
-import App from '@/refineApp'
-import {Head} from "@inertiajs/react";
-import {useNavigation} from "@refinedev/core";
+import React from "react";
+import App from "@/refineApp";
+import { Head } from "@inertiajs/react";
+import { useNavigation } from "@refinedev/core";
 
-export default function Admin({resource, action, id}: {
-    resource?: string
-    action?: string
-    id ?: string
+export default function Admin({
+    resource,
+    action,
+    id,
+}: {
+    resource?: string;
+    action?: string;
+    id?: string;
 }) {
     const { list, create, edit, show } = useNavigation();
 
     const navigateTo = () => {
         if (!resource) {
-            resource = 'blog_posts'
+            resource = "blog_posts";
         }
 
         switch (action) {
@@ -20,17 +24,17 @@ export default function Admin({resource, action, id}: {
                 create(resource);
                 break;
             case "edit":
-                edit(resource, id ?? '');
+                edit(resource, id ?? "");
                 break;
             case "show":
-                show(resource, id ?? '');
+                show(resource, id ?? "");
                 break;
             default:
                 list(resource);
         }
     };
 
-    navigateTo()
+    // navigateTo()
 
     return (
         <React.StrictMode>
