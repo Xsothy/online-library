@@ -1,8 +1,9 @@
-import {usePage} from "@inertiajs/react";
-import {PageProps} from "@/types";
+import {usePage} from "@/utils/hook/usePage";
+import {Effect, pipe} from "effect";
 
 
 export const useConfig = () => {
-    const page = usePage<PageProps>()
-    return page.props.config;
+    return usePage().pipe(
+        Effect.map((page) => page.props.config)
+    )
 };
