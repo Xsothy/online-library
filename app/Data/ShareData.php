@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\Optional;
 
-/** @typescript */
 class ShareData extends Data
 {
 

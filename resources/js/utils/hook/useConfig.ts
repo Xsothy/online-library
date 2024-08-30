@@ -1,9 +1,5 @@
 import {usePage} from "@/utils/hook/usePage";
-import {Effect, pipe} from "effect";
+import {Effect} from "effect";
 
 
-export const useConfig = () => {
-    return usePage().pipe(
-        Effect.map((page) => page.props.config)
-    )
-};
+export const useConfig =  usePage.pipe(Effect.map(page => page.props.config))

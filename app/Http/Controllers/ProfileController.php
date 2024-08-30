@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\UserData;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -21,6 +22,7 @@ class ProfileController extends Controller
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'user' => UserData::from($request->user()),
         ]);
     }
 

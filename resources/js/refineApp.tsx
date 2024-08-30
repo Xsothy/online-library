@@ -15,20 +15,16 @@ import dataProvider from "@refinedev/simple-rest";
 import {App as AntdApp} from "antd";
 import {BrowserRouter, Outlet, Route, Routes} from "react-router-dom";
 import {authProvider} from "./authProvider";
-import {AppIcon} from "@/Components/app-icon";
 import {Header} from "@/Components/header";
 import {ColorModeContextProvider} from "./contexts/color-mode";
 import {ForgotPassword} from "@/Pages/forgotPassword";
 import {Login} from "@/Pages/login";
 import {Register} from "@/Pages/register";
 import { useConfig } from "@/utils/hook/useConfig";
-import {
-    DevToolsContext,
-    DevtoolsEvent,
-    send,
-} from "@refinedev/devtools-shared";
+
 import React from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
+import {runSync} from "effect/Effect";
 function App()
 {
     const resources: RefineProps["resources"] = [
@@ -43,7 +39,7 @@ function App()
             },
         },
     ];
-    const config = useConfig()
+    const config = runSync(useConfig)
     return (
         <BrowserRouter>
             <ColorModeContextProvider>
@@ -75,7 +71,7 @@ function App()
                                         <Authenticated
                                             key="authenticated-inner"
                                             fallback={
-                                                <CatchAllNavigate to="/login"/>
+                                                <CatchAllNavigate to="admin/login"/>
                                             }
                                             v3LegacyAuthProviderCompatible
                                         >

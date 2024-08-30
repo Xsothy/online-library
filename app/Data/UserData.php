@@ -4,7 +4,6 @@ namespace App\Data;
 
 use App\Enum\KycStatusEnum;
 use Spatie\LaravelData\Data;
-/** @typescript */
 class UserData extends Data
 {
     public function __construct(

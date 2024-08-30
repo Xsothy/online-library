@@ -1,5 +1,6 @@
 <?php
 
+use App\Data\UserData;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -20,7 +21,9 @@ Route::get("/admin/{resource?}/{action?}/{id?}", [AdminController::class, 'index
 Route::resource('users', \App\Http\Controllers\UserController::class);
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard', [
+        'user' => UserData::from(auth()->user()),
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

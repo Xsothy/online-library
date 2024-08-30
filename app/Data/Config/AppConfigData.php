@@ -4,7 +4,6 @@ namespace App\Data\Config;
 
 use Spatie\LaravelData\Data;
 
-/** @typescript */
 class AppConfigData extends Data
 {
     public string $name;

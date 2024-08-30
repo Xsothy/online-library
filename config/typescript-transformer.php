@@ -19,6 +19,7 @@ return [
      */
 
     'collectors' => [
+        Spatie\LaravelData\Support\TypeScriptTransformer\DataTypeScriptCollector::class,
         Spatie\TypeScriptTransformer\Collectors\DefaultCollector::class,
         Spatie\TypeScriptTransformer\Collectors\EnumCollector::class,
     ],
@@ -29,6 +30,7 @@ return [
      */
 
     'transformers' => [
+        Spatie\LaravelData\Support\TypeScriptTransformer\DataTypeScriptTransformer::class,
         Spatie\LaravelTypeScriptTransformer\Transformers\SpatieStateTransformer::class,
         Spatie\TypeScriptTransformer\Transformers\EnumTransformer::class,
         Spatie\TypeScriptTransformer\Transformers\SpatieEnumTransformer::class,
@@ -46,8 +48,7 @@ return [
         DateTimeImmutable::class => 'string',
         Carbon\CarbonInterface::class => 'string',
         Carbon\CarbonImmutable::class => 'string',
-        Carbon\Carbon::class => 'string',
-        Optional::class => 'optional',
+        Carbon\Carbon::class => 'string'
     ],
 
     /*
