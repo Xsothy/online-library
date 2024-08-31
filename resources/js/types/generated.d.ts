@@ -1,12 +1,12 @@
 declare namespace App.Data {
     export type AuthData = {
-        user: App.Data.UserData | null;
+        user: App.Data.UserData;
     };
     export type ConfigData = {
         app: App.Data.Config.AppConfigData;
     };
     export type ShareData = {
-        auth: App.Data.AuthData;
+        auth: App.Data.AuthData | null;
         config: App.Data.ConfigData;
     };
     export type UserData = {

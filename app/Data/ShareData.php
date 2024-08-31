@@ -11,7 +11,7 @@ class ShareData extends Data
 {
 
     public function __construct(
-        public AuthData $auth,
+        public ?AuthData $auth,
         public ConfigData $config,
     )
     {
@@ -20,9 +20,9 @@ class ShareData extends Data
     public static function fromRequest(Request $request): ShareData
     {
         return new self(
-            new AuthData(
-                $request->user() ? UserData::from($request->user()) : null
-            ),
+            $request->user() ? new AuthData(
+                UserData::from($request->user())
+            ) : null,
             new ConfigData(
                 new AppConfigData()
             )
