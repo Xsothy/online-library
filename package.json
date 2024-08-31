@@ -43,6 +43,7 @@
     },
     "dependencies": {
         "@effect-ts/schema": "^0.17.2",
+        "@effect/platform": "^0.63.0",
         "effect": "^3.6.7"
     }
 }
