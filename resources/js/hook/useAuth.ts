@@ -1,4 +1,4 @@
-import {usePage} from "@/utils/hook/usePage";
+import {usePage} from "@/hook/usePage";
 import {Effect} from "effect";
 import {UnAuthorizedError} from "@/errors";
 

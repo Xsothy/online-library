@@ -2,6 +2,7 @@
 declare module 'ziggy-js' {
   interface RouteList {
     "sanctum.csrf-cookie": [],
+    "book.index": [],
     "users.index": [],
     "users.create": [],
     "users.store": [],
@@ -75,6 +76,17 @@ declare module 'ziggy-js' {
             "web"
         ]
     },
+    "book.index": {
+        "uri": "book",
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "parameters": [],
+        "middleware": [
+            "web"
+        ]
+    },
     "users.index": {
         "uri": "users",
         "methods": [
@@ -83,7 +95,8 @@ declare module 'ziggy-js' {
         ],
         "parameters": [],
         "middleware": [
-            "web"
+            "web",
+            "auth"
         ]
     },
     "users.create": {
@@ -94,7 +107,8 @@ declare module 'ziggy-js' {
         ],
         "parameters": [],
         "middleware": [
-            "web"
+            "web",
+            "auth"
         ]
     },
     "users.store": {
@@ -104,7 +118,8 @@ declare module 'ziggy-js' {
         ],
         "parameters": [],
         "middleware": [
-            "web"
+            "web",
+            "auth"
         ]
     },
     "users.show": {
@@ -121,7 +136,8 @@ declare module 'ziggy-js' {
             }
         ],
         "middleware": [
-            "web"
+            "web",
+            "auth"
         ]
     },
     "users.edit": {
@@ -137,7 +153,8 @@ declare module 'ziggy-js' {
             }
         ],
         "middleware": [
-            "web"
+            "web",
+            "auth"
         ]
     },
     "users.update": {
@@ -154,7 +171,8 @@ declare module 'ziggy-js' {
             }
         ],
         "middleware": [
-            "web"
+            "web",
+            "auth"
         ]
     },
     "users.destroy": {
@@ -170,7 +188,8 @@ declare module 'ziggy-js' {
             }
         ],
         "middleware": [
-            "web"
+            "web",
+            "auth"
         ]
     },
     "dashboard": {
@@ -183,8 +202,7 @@ declare module 'ziggy-js' {
         "middleware": [
             "web",
             "auth",
-            "verified",
-            "web"
+            "verified"
         ]
     },
     "profile.edit": {

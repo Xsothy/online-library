@@ -2,8 +2,30 @@ declare namespace App.Data {
     export type AuthData = {
         user: App.Data.UserData;
     };
+    export type BookData = {
+        id: number;
+        title: string;
+        description: string;
+        publish_at: string;
+        inventories: Array<App.Data.InventoryData>;
+    };
+    export type BookInventoryData = {
+        id: number;
+        book_id: number;
+        inventory: App.Data.InventoryData;
+    };
     export type ConfigData = {
         app: App.Data.Config.AppConfigData;
+    };
+    export type InventoryData = {
+        id: number;
+        quantity: number;
+        price: number;
+        rent_price: number;
+        created_by: App.Data.UserData;
+        updated_by: App.Data.UserData;
+        created_at: string;
+        updated_at: string;
     };
     export type ShareData = {
         auth: App.Data.AuthData | null;
