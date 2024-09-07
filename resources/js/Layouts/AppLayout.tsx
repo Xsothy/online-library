@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, usePage } from '@inertiajs/react'
-import { Toaster } from 'sonner'
+import { Toaster } from "@/Components/ui/toaster"
 import { PageProps } from '@/types'
 import { Button } from "@/Components/ui/button"
 import {

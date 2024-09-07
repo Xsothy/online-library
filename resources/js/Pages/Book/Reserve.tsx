@@ -16,18 +16,7 @@ export default function ReservePage({ book }: ReservePageProps) {
 
     const handleReserve = () => {
         setIsReserving(true)
-        router.post(route('book.reserve.create', book.id), {}, {
-            preserveState: true,
-            preserveScroll: true,
-            onSuccess: () => {
-                toast.success('Book reserved successfully!')
-                router.visit(route('book.show', book.id))
-            },
-            onError: () => {
-                toast.error('Failed to reserve the book. Please try again.')
-                setIsReserving(false)
-            }
-        })
+        router.post(route('book.reserve.create', book.id))
     }
 
     return (

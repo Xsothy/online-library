@@ -19,17 +19,7 @@ export default function RentPage({ book }: RentPageProps) {
 
     const handleRent = (e: React.FormEvent) => {
         e.preventDefault()
-        router.post(route('book.rent.create', book.id), { duration }, {
-            preserveState: true,
-            preserveScroll: true,
-            onSuccess: () => {
-                toast.success('Book rented successfully!')
-                router.visit(route('book.show', book.id))
-            },
-            onError: () => {
-                toast.error('Failed to rent the book. Please try again.')
-            }
-        })
+        router.post(route('book.rent.create', book.id), { duration })
     }
 
     return (

@@ -13,6 +13,7 @@ class ShareData extends Data
     public function __construct(
         public ?AuthData $auth,
         public ConfigData $config,
+        public ?FlashData $flash,
     )
     {
     }
@@ -25,7 +26,11 @@ class ShareData extends Data
             ) : null,
             new ConfigData(
                 new AppConfigData()
-            )
+            ),
+            session('message') ? new FlashData(
+                session('message'),
+                session('level')
+            ) : null
         );
     }
 }

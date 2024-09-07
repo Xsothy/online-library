@@ -1,18 +1,20 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { router } from '@inertiajs/react'
 import { PageProps } from '@/types'
 import AppLayout from '@/Layouts/AppLayout'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card"
 import { Button } from "@/Components/ui/button"
 import { Badge } from "@/Components/ui/badge"
+import {useToast} from "@/hooks/use-toast";
 
 interface BookShowProps extends PageProps {
     book: App.Data.BookData
     userRent: App.Data.RentData | null
-    userReserve: App.Data.ReserveData | null
+    userReserve: App.Data.ReservationData | null
 }
 
-export default function BookShow({ book, userRent, userReserve }: BookShowProps) {
+export default function BookShow({ book, userRent, userReserve, flash }: BookShowProps) {
+    const { toast } = useToast()
     const handleRent = () => {
         router.visit(route('book.rent', book.id))
     }
@@ -20,6 +22,15 @@ export default function BookShow({ book, userRent, userReserve }: BookShowProps)
     const handleReserve = () => {
         router.visit(route('book.reserve', book.id))
     }
+
+    useEffect(() => {
+        if (flash) {
+            toast({
+                title: flash.level,
+                description: flash.message
+            })
+        }
+    }, [flash])
 
     return (
         <AppLayout>
@@ -55,7 +66,7 @@ export default function BookShow({ book, userRent, userReserve }: BookShowProps)
                                 )}
                                 {userRent && (
                                     <div className="p-4 bg-primary/10 rounded-md">
-                                        <p>You have rented this book until {userRent.end_date}</p>
+                                        <p>You have rented this book until {userRent.dueAt}</p>
                                     </div>
                                 )}
                                 {userReserve && (

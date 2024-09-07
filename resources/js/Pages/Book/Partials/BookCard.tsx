@@ -12,7 +12,7 @@ interface BookCardProps {
 export default function BookCard({ book, layout }: BookCardProps) {
     return (
         <Card className={`overflow-hidden ${layout === 'list' ? 'flex' : 'flex-col'}`}>
-            <div className={`${layout === 'list' ? 'w-1/3' : 'w-full'} ${layout === 'list' ? 'aspect-[1.6/1]' : 'aspect-[1/1.6]'} relative`}>
+            <div className={`${layout === 'list' ? 'w-1/3' : 'w-full'} ${layout === 'list' ? 'aspect-[1.6/1]' : 'aspect-[1/1.3]'} relative`}>
                 <img
                     src="/placeholder.svg?height=512&width=320"
                     alt={book.title}

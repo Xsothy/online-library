@@ -14,6 +14,10 @@ declare namespace App.Data {
     export type ConfigData = {
         app: App.Data.Config.AppConfigData;
     };
+    export type FlashData = {
+        message: string;
+        level: string;
+    };
     export type GenreData = {
         id: number;
         name: string;
@@ -29,9 +33,28 @@ declare namespace App.Data {
         created_at: string;
         updated_at: string;
     };
+    export type RentData = {
+        dueAt: string;
+        id: number;
+        book: App.Data.BookData;
+        duration: number;
+        createdBy: App.Data.UserData;
+        updatedBy: App.Data.UserData;
+        createdAt: string;
+        deliveredAt: string;
+        receivedAt: string;
+    };
+    export type ReservationData = {
+        id: number;
+        book: App.Data.BookData;
+        duration: number;
+        createdBy: App.Data.UserData;
+        createdAt: string;
+    };
     export type ShareData = {
         auth: App.Data.AuthData | null;
         config: App.Data.ConfigData;
+        flash: App.Data.FlashData | null;
     };
     export type UserData = {
         id: number;
@@ -41,12 +64,6 @@ declare namespace App.Data {
         lastName: string | null;
         kycStatus: App.Enum.KycStatusEnum | null;
         emailVerifiedAt: string | null;
-    };
-    export type RentData = {
-        end_date: string;
-    };
-    export type ReserveData = {
-
     };
 }
 declare namespace App.Data.Config {
