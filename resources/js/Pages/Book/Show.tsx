@@ -13,7 +13,6 @@ export default function BookShow({ book }: BookShowProps) {
     const [isRenting, setIsRenting] = useState(false)
     const [isReserving, setIsReserving] = useState(false)
     const firstInventory = book.inventories[0]
-    const isAvailable = firstInventory && firstInventory.quantity > 0
 
     const handleRent = (duration: number) => {
         router.post(`/book/${book.id}/rent`, { duration })
@@ -42,11 +41,11 @@ export default function BookShow({ book }: BookShowProps) {
                         </>
                     )}
                     <p className="text-lg font-medium mb-4">
-                        Status: {isAvailable ? 'Available' : 'Not Available'}
+                        Status: {book.isAvailable ? 'Available' : 'Not Available'}
                     </p>
 
                     <div className="mt-6 space-y-4">
-                        {isAvailable && (
+                        {book.isAvailable && (
                             isRenting ? (
                                 <RentForm onSubmit={handleRent} onCancel={() => setIsRenting(false)} />
                             ) : (
@@ -59,7 +58,7 @@ export default function BookShow({ book }: BookShowProps) {
                             )
                         )}
 
-                        {!isAvailable && (
+                        {!book.isAvailable && (
                             <ReserveButton
                                 bookId={book.id}
                                 onReserve={handleReserve}

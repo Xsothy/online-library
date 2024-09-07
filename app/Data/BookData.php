@@ -2,22 +2,26 @@
 
 namespace App\Data;
 
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\Computed;
 use Spatie\LaravelData\Data;
 
 class BookData extends Data
 {
+    #[Computed]
+    public bool $isAvailable;
     public function __construct(
         public int $id,
         public string $title,
         public string $description,
         public string $publish_at,
         /**
-         * @var InventoryData[]
+         * @var Collection<InventoryData>
          * @typescript InventoryData[]
          */
-        public array $inventories
+        public Collection $inventories
     )
     {
-
+        $this->isAvailable = $inventories->some(fn (InventoryData $inventory) => $inventory->quantity > 0);
     }
 }

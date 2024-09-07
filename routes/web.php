@@ -15,7 +15,7 @@ $books = BookData::collect([
         'To Kill a Mockingbird',
         'A classic of modern American literature.',
         '1960-07-11',
-        [
+        collect([
             new InventoryData(
                 1,
                 1,
@@ -36,14 +36,14 @@ $books = BookData::collect([
                 '2023-01-01 00:00:00',
                 '2023-01-01 00:00:00',
             )
-        ]
+        ])
     ),
     new BookData(
         2,
         '1984',
         'A dystopian social science fiction novel.',
         '1949-06-08',
-        [
+        collect([
             new InventoryData(
                 3,
                 3,
@@ -64,14 +64,14 @@ $books = BookData::collect([
                 '2023-01-01 00:00:00',
                 '2023-01-01 00:00:00',
             )
-        ]
+        ])
     ),
     new BookData(
         3,
         'Pride and Prejudice',
         'A romantic novel of manners.',
         '1813-01-28',
-        [
+        collect([
             new InventoryData(
                 5,
                 0,
@@ -82,7 +82,7 @@ $books = BookData::collect([
                 '2023-01-01 00:00:00',
                 '2023-01-01 00:00:00',
             )
-        ]
+        ])
     )
 ]);
 

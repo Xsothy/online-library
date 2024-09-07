@@ -6,9 +6,6 @@ interface BookCardProps {
 }
 
 export default function BookCard({ book }: BookCardProps) {
-    const firstInventory = book.inventories[0]
-    const isAvailable = firstInventory && firstInventory.quantity > 0
-
     return (
         <div className="bg-white shadow-md rounded-lg overflow-hidden">
             <img
@@ -23,7 +20,7 @@ export default function BookCard({ book }: BookCardProps) {
                 <p className="text-gray-600 mb-4">{book.description}</p>
                 <p className="text-sm text-gray-500 mb-2">Published: {book.publish_at}</p>
                 <p className="text-sm font-medium mb-4">
-                    Status: {isAvailable ? 'Available' : 'Not Available'}
+                    Status: {book.isAvailable ? 'Available' : 'Not Available'}
                 </p>
                 <div className="mt-4">
                     <Link

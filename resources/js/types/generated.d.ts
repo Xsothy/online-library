@@ -3,6 +3,7 @@ declare namespace App.Data {
         user: App.Data.UserData;
     };
     export type BookData = {
+        isAvailable: boolean;
         id: number;
         title: string;
         description: string;
