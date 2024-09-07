@@ -74,19 +74,9 @@ $books = BookData::collect([
         [
             new InventoryData(
                 5,
-                5,
+                0,
                 9.99,
                 1.99,
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                '2023-01-01 00:00:00',
-                '2023-01-01 00:00:00',
-            ),
-            new InventoryData(
-                6,
-                6,
-                12.99,
-                2.49,
                 new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
                 new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
                 '2023-01-01 00:00:00',
