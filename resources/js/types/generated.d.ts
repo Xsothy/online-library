@@ -9,14 +9,15 @@ declare namespace App.Data {
         description: string;
         publish_at: string;
         inventories: Array<App.Data.InventoryData>;
-    };
-    export type BookInventoryData = {
-        id: number;
-        book_id: number;
-        inventory: App.Data.InventoryData;
+        genres: Array<App.Data.GenreData>;
     };
     export type ConfigData = {
         app: App.Data.Config.AppConfigData;
+    };
+    export type GenreData = {
+        id: number;
+        name: string;
+        description: string;
     };
     export type InventoryData = {
         id: number;

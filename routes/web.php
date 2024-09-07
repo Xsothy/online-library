@@ -3,13 +3,25 @@
 use App\Data\BookData;
 use App\Data\UserData;
 use App\Data\InventoryData;
+use App\Data\GenreData;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
-$books = BookData::collect([
+$genres = collect([
+    new GenreData(1, 'Action', 'A genre of fiction.'),
+    new GenreData(2, 'Adventure', 'A genre of fiction.'),
+    new GenreData(3, 'Comedy', 'A genre of fiction.'),
+    new GenreData(4, 'Drama', 'A genre of fiction.'),
+    new GenreData(5, 'Fantasy', 'A genre of fiction.'),
+    new GenreData(6, 'Horror', 'A genre of fiction.'),
+    new GenreData(7, 'Mystery', 'A genre of fiction.'),
+    new GenreData(8, 'Romance', 'A genre of fiction.'),
+    new GenreData(9, 'Science Fiction', 'A genre of fiction.'),
+]);
+$books = collect([
     new BookData(
         1,
         'To Kill a Mockingbird',
@@ -36,7 +48,8 @@ $books = BookData::collect([
                 '2023-01-01 00:00:00',
                 '2023-01-01 00:00:00',
             )
-        ])
+        ]),
+        $genres->random(rand(1, 5))
     ),
     new BookData(
         2,
@@ -64,7 +77,8 @@ $books = BookData::collect([
                 '2023-01-01 00:00:00',
                 '2023-01-01 00:00:00',
             )
-        ])
+        ]),
+        $genres->random(rand(1, 5))
     ),
     new BookData(
         3,
@@ -82,7 +96,8 @@ $books = BookData::collect([
                 '2023-01-01 00:00:00',
                 '2023-01-01 00:00:00',
             )
-        ])
+        ]),
+        $genres->random(rand(1, 5))
     )
 ]);
 
@@ -95,13 +110,17 @@ Route::inertia('/', 'Welcome', [
 
 Route::inertia('/book', 'Book/index', [
     'books' => $books,
+    'genres' => $genres,
 ])->name('book.index');
 Route::get('/book/{id}', function (int $id) use ($books) {
     $book = collect($books)->first(fn ($book) => $book->id === $id);
     if (!$book) {
         abort(404);
     }
-    return inertia('Book/Show', ['book' => $book]);
+    return inertia('Book/Show', [
+        'book' => $book,
+        'relatedBooks' => $books->random(3)
+    ]);
 })->name('book.show');
 
 Route::middleware('auth')->group(function () {

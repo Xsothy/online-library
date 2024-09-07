@@ -1,18 +1,24 @@
-import React, { useState } from 'react'
-import { router, usePage } from '@inertiajs/react'
+import React from 'react'
+import { router } from '@inertiajs/react'
 import { PageProps } from '@/types'
 import AppLayout from '@/Layouts/AppLayout'
 import RentForm from '@/Pages/Book/Partials/RentForm'
 import ReserveButton from '@/Pages/Book/Partials/ReserveButton'
+import BookCard from '@/Pages/Book/Partials/BookCard'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card"
+import { Button } from "@/Components/ui/button"
+import { Badge } from "@/Components/ui/badge"
 
 interface BookShowProps extends PageProps {
     book: App.Data.BookData
+    relatedBooks: App.Data.BookData[]
 }
 
-export default function BookShow({ book }: BookShowProps) {
-    const [isRenting, setIsRenting] = useState(false)
-    const [isReserving, setIsReserving] = useState(false)
+export default function BookShow({ book, relatedBooks }: BookShowProps) {
+    const [isRenting, setIsRenting] = React.useState(false)
+    const [isReserving, setIsReserving] = React.useState(false)
     const firstInventory = book.inventories[0]
+    const isAvailable = book.isAvailable
 
     const handleRent = (duration: number) => {
         router.post(`/book/${book.id}/rent`, { duration })
@@ -24,16 +30,25 @@ export default function BookShow({ book }: BookShowProps) {
 
     return (
         <AppLayout>
-            <div className="bg-white shadow-md rounded-lg overflow-hidden">
-                <img
-                    src="/placeholder.svg?height=300&width=600"
-                    alt={book.title}
-                    className="w-full h-64 object-cover"
-                />
-                <div className="p-6">
-                    <h1 className="text-3xl font-bold mb-4">{book.title}</h1>
-                    <p className="text-gray-600 mb-4">{book.description}</p>
-                    <p className="text-sm text-gray-500 mb-2">Published: {book.publish_at}</p>
+            <Card className="mb-8">
+                <CardHeader>
+                    <img
+                        src="/placeholder.svg?height=300&width=600"
+                        alt={book.title}
+                        className="w-full h-64 object-cover rounded-t-lg"
+                    />
+                    <CardTitle>{book.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {book.genres.map((genre) => (
+                            <Badge key={genre.id} variant="secondary">
+                                {genre.name}
+                            </Badge>
+                        ))}
+                    </div>
+                    <p className="text-muted-foreground mb-4">{book.description}</p>
+                    <p className="text-sm text-muted-foreground mb-2">Published: {book.publish_at}</p>
                     {firstInventory && (
                         <>
                             <p className="text-lg font-semibold mb-2">Price: ${firstInventory.price.toFixed(2)}</p>
@@ -41,34 +56,41 @@ export default function BookShow({ book }: BookShowProps) {
                         </>
                     )}
                     <p className="text-lg font-medium mb-4">
-                        Status: {book.isAvailable ? 'Available' : 'Not Available'}
+                        Status: {isAvailable ? 'Available' : 'Not Available'}
                     </p>
+                </CardContent>
+                <CardFooter className="flex flex-col space-y-4">
+                    {isAvailable && (
+                        isRenting ? (
+                            <RentForm onSubmit={handleRent} onCancel={() => setIsRenting(false)} />
+                        ) : (
+                            <Button onClick={() => setIsRenting(true)}>
+                                Rent Now
+                            </Button>
+                        )
+                    )}
 
-                    <div className="mt-6 space-y-4">
-                        {book.isAvailable && (
-                            isRenting ? (
-                                <RentForm onSubmit={handleRent} onCancel={() => setIsRenting(false)} />
-                            ) : (
-                                <button
-                                    onClick={() => setIsRenting(true)}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-                                >
-                                    Rent Now
-                                </button>
-                            )
-                        )}
+                    {!isAvailable && (
+                        <ReserveButton
+                            bookId={book.id}
+                            onReserve={handleReserve}
+                            isReserving={isReserving}
+                            setIsReserving={setIsReserving}
+                        />
+                    )}
+                </CardFooter>
+            </Card>
 
-                        {!book.isAvailable && (
-                            <ReserveButton
-                                bookId={book.id}
-                                onReserve={handleReserve}
-                                isReserving={isReserving}
-                                setIsReserving={setIsReserving}
-                            />
-                        )}
+            {relatedBooks.length > 0 && (
+                <div className="mt-12">
+                    <h2 className="text-2xl font-bold mb-4">Related Books</h2>
+                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {relatedBooks.map((relatedBook) => (
+                            <BookCard key={relatedBook.id} book={relatedBook} />
+                        ))}
                     </div>
                 </div>
-            </div>
+            )}
         </AppLayout>
     )
 }

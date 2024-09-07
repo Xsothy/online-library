@@ -1,36 +1,47 @@
 import React from 'react'
 import { Link } from '@inertiajs/react'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card"
+import { Button } from "@/Components/ui/button"
+import { Badge } from "@/Components/ui/badge"
 
 interface BookCardProps {
     book: App.Data.BookData
 }
 
 export default function BookCard({ book }: BookCardProps) {
+    const isAvailable = book.isAvailable
+
     return (
-        <div className="bg-white shadow-md rounded-lg overflow-hidden">
-            <img
-                src="/placeholder.svg?height=200&width=300"
-                alt={book.title}
-                width={300}
-                height={200}
-                className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-                <h2 className="text-xl font-semibold mb-2">{book.title}</h2>
-                <p className="text-gray-600 mb-4">{book.description}</p>
-                <p className="text-sm text-gray-500 mb-2">Published: {book.publish_at}</p>
+        <Card>
+            <CardHeader>
+                <img
+                    src="/placeholder.svg?height=200&width=300"
+                    alt={book.title}
+                    className="w-full h-48 object-cover rounded-t-lg"
+                />
+                <CardTitle>{book.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p className="text-sm text-muted-foreground mb-2">{book.description}</p>
+                <p className="text-sm text-muted-foreground mb-2">Published: {book.publish_at}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                    {book.genres.map((genre) => (
+                        <Badge key={genre.id} variant="secondary">
+                            {genre.name}
+                        </Badge>
+                    ))}
+                </div>
                 <p className="text-sm font-medium mb-4">
-                    Status: {book.isAvailable ? 'Available' : 'Not Available'}
+                    Status: {isAvailable ? 'Available' : 'Not Available'}
                 </p>
-                <div className="mt-4">
-                    <Link
-                        href={`/book/${book.id}`}
-                        className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-                    >
+            </CardContent>
+            <CardFooter>
+                <Button asChild>
+                    <Link href={`/book/${book.id}`}>
                         View Details
                     </Link>
-                </div>
-            </div>
-        </div>
+                </Button>
+            </CardFooter>
+        </Card>
     )
 }

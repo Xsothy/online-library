@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from "@/Components/ui/button"
 
 interface ReserveButtonProps {
     bookId: number
@@ -14,12 +15,8 @@ export default function ReserveButton({ bookId, onReserve, isReserving, setIsRes
     }
 
     return (
-        <button
-            onClick={handleReserve}
-            disabled={isReserving}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors disabled:opacity-50"
-        >
+        <Button onClick={handleReserve} disabled={isReserving}>
             {isReserving ? 'Reserving...' : 'Reserve'}
-        </button>
+        </Button>
     )
 }

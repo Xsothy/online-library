@@ -19,7 +19,12 @@ class BookData extends Data
          * @var Collection<InventoryData>
          * @typescript InventoryData[]
          */
-        public Collection $inventories
+        public Collection $inventories,
+        /**
+         * @var Collection<GenreData>
+         * @typescript GenreData[]
+         */
+        public Collection $genres
     )
     {
         $this->isAvailable = $inventories->some(fn (InventoryData $inventory) => $inventory->quantity > 0);

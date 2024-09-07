@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return response()->json($user)->header('X-Total-Count', User::count());
+        return response()->json($user);
     }
 
     public function update(Request $request, User $user)
