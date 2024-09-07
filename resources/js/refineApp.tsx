@@ -20,7 +20,7 @@ import {ColorModeContextProvider} from "./contexts/color-mode";
 import {ForgotPassword} from "@/Pages/forgotPassword";
 import {Login} from "@/Pages/login";
 import {Register} from "@/Pages/register";
-import { useConfig } from "@/utils/hook/useConfig";
+import { useConfig } from "@/hook/useConfig";
 
 import React from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
