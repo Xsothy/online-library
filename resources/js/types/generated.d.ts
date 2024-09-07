@@ -42,6 +42,12 @@ declare namespace App.Data {
         kycStatus: App.Enum.KycStatusEnum | null;
         emailVerifiedAt: string | null;
     };
+    export type RentData = {
+        end_date: string;
+    };
+    export type ReserveData = {
+
+    };
 }
 declare namespace App.Data.Config {
     export type AppConfigData = {

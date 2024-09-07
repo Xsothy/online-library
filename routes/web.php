@@ -5,6 +5,7 @@ use App\Data\UserData;
 use App\Data\InventoryData;
 use App\Data\GenreData;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -112,6 +113,7 @@ Route::inertia('/book', 'Book/index', [
     'books' => $books,
     'genres' => $genres,
 ])->name('book.index');
+
 Route::get('/book/{id}', function (int $id) use ($books) {
     $book = collect($books)->first(fn ($book) => $book->id === $id);
     if (!$book) {
@@ -122,6 +124,29 @@ Route::get('/book/{id}', function (int $id) use ($books) {
         'relatedBooks' => $books->random(3)
     ]);
 })->name('book.show');
+
+Route::get('/book/{id}/rent', function (int $id) use ($books) {
+    $book = collect($books)->first(fn ($book) => $book->id === $id);
+    if (!$book) {
+        abort(404);
+    }
+    return inertia('Book/Rent', [
+        'book' => $book,
+    ]);
+})->name('book.rent');
+
+Route::get('/book/{id}/reserve', function (int $id) use ($books) {
+    $book = collect($books)->first(fn ($book) => $book->id === $id);
+    if (!$book) {
+        abort(404);
+    }
+    return inertia('Book/Reserve', [
+        'book' => $book,
+    ]);
+})->name('book.reserve');
+
+Route::post('book/{id}/rent', [BookController::class, 'createRent'])->name('book.rent.create');
+Route::post('book/{id}/reserve', [BookController::class, 'createReserve'])->name('book.reserve.create');
 
 Route::middleware('auth')->group(function () {
 

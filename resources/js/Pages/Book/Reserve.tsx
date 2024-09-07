@@ -1,24 +1,33 @@
 import React from 'react'
 import { router } from '@inertiajs/react'
+import { toast } from 'sonner'
 import { PageProps } from '@/types'
 import AppLayout from '@/Layouts/AppLayout'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card"
 import { Button } from "@/Components/ui/button"
 import { Badge } from "@/Components/ui/badge"
 
-interface BookShowProps extends PageProps {
+interface ReservePageProps extends PageProps {
     book: App.Data.BookData
-    userRent: App.Data.RentData | null
-    userReserve: App.Data.ReserveData | null
 }
 
-export default function BookShow({ book, userRent, userReserve }: BookShowProps) {
-    const handleRent = () => {
-        router.visit(route('book.rent', book.id))
-    }
+export default function ReservePage({ book }: ReservePageProps) {
+    const [isReserving, setIsReserving] = React.useState(false)
 
     const handleReserve = () => {
-        router.visit(route('book.reserve', book.id))
+        setIsReserving(true)
+        router.post(route('book.reserve.create', book.id), {}, {
+            preserveState: true,
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Book reserved successfully!')
+                router.visit(route('book.show', book.id))
+            },
+            onError: () => {
+                toast.error('Failed to reserve the book. Please try again.')
+                setIsReserving(false)
+            }
+        })
     }
 
     return (
@@ -34,7 +43,7 @@ export default function BookShow({ book, userRent, userReserve }: BookShowProps)
                     </div>
                     <div className="sm:w-2/3">
                         <CardHeader>
-                            <CardTitle>{book.title}</CardTitle>
+                            <CardTitle>Reserve Book: {book.title}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">
@@ -46,28 +55,17 @@ export default function BookShow({ book, userRent, userReserve }: BookShowProps)
                                         </Badge>
                                     ))}
                                 </div>
-                                <p className="font-semibold">Published: {book.publish_at}</p>
-                                {book.isAvailable && !userRent && !userReserve && (
-                                    <Button onClick={handleRent} className="w-full">Rent</Button>
-                                )}
-                                {!book.isAvailable && !userRent && !userReserve && (
-                                    <Button onClick={handleReserve} className="w-full">Reserve</Button>
-                                )}
-                                {userRent && (
-                                    <div className="p-4 bg-primary/10 rounded-md">
-                                        <p>You have rented this book until {userRent.end_date}</p>
-                                    </div>
-                                )}
-                                {userReserve && (
-                                    <div className="p-4 bg-primary/10 rounded-md">
-                                        <p>You have reserved this book. We'll notify you when it's available.</p>
-                                    </div>
-                                )}
+                                <p>
+                                    This book is currently unavailable. By reserving, you'll be notified when it becomes available for rent.
+                                </p>
+                                <Button onClick={handleReserve} disabled={isReserving} className="w-full">
+                                    {isReserving ? 'Reserving...' : 'Confirm Reservation'}
+                                </Button>
                             </div>
                         </CardContent>
                         <CardFooter>
-                            <Button variant="outline" onClick={() => router.get(route('book.index'))} className="w-full">
-                                Back to Book List
+                            <Button variant="outline" onClick={() => router.visit(route('book.show', book.id))} className="w-full">
+                                Back to Book Details
                             </Button>
                         </CardFooter>
                     </div>

@@ -1,31 +1,40 @@
 import React from 'react'
 import { Link, usePage } from '@inertiajs/react'
+import { Toaster } from 'sonner'
 import { PageProps } from '@/types'
+import { Button } from "@/Components/ui/button"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/Components/ui/dropdown-menu"
+import { User, LogOut } from 'lucide-react'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-    const { auth, config } = usePage<PageProps>().props;
+    const { auth, config } = usePage<PageProps>().props
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-200">
+        <div className="min-h-screen bg-background text-foreground dark">
+            <nav className="border-b border-border">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="flex-shrink-0 flex items-center">
                                 <Link href="/">
-                                    <span className="text-xl font-bold text-gray-800">{config.app.name}</span>
+                                    <span className="text-xl font-bold">{config.app.name}</span>
                                 </Link>
                             </div>
                             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                                 <Link
                                     href="/"
-                                    className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                                    className="border-primary text-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                                 >
                                     Home
                                 </Link>
                                 <Link
                                     href="/book"
-                                    className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                                    className="border-transparent text-muted-foreground hover:text-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                                 >
                                     Books
                                 </Link>
@@ -33,11 +42,28 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         </div>
                         <div className="hidden sm:ml-6 sm:flex sm:items-center">
                             {auth?.user ? (
-                                <span className="text-gray-700">{auth.user.name}</span>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                                            <User className="h-4 w-4" />
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuItem asChild>
+                                            <Link href="/profile">Profile</Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem asChild>
+                                            <Link href="/logout" method="post" as="button" className="w-full text-left">
+                                                <LogOut className="mr-2 h-4 w-4" />
+                                                <span>Log out</span>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             ) : (
                                 <Link
                                     href="/login"
-                                    className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                                    className="text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm font-medium"
                                 >
                                     Login
                                 </Link>
@@ -51,13 +77,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">{children}</div>
             </main>
 
-            <footer className="bg-white border-t border-gray-200">
+            <footer className="border-t border-border">
                 <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <p className="text-center text-sm text-gray-500">
+                    <p className="text-center text-sm text-muted-foreground">
                         © 2023 {config.app.name}. All rights reserved.
                     </p>
                 </div>
             </footer>
+
+            <Toaster />
         </div>
     )
 }
