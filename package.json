@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "mok_thy": "vite --host"
   },
   "devDependencies": {
     "@ant-design/icons": "^5.0.1",
