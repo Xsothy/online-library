@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react'
-import {Link, useForm, usePage} from '@inertiajs/react'
-import { Toaster } from "@/Components/ui/toaster"
+import React, { useEffect } from 'react'
+import { Link, usePage } from '@inertiajs/react'
 import { PageProps } from '@/types'
 import { Button } from "@/Components/ui/button"
 import {
@@ -9,17 +8,20 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { User, LogOut } from 'lucide-react'
-import {useToast} from "@/hooks/use-toast";
+import { Toaster } from "@/Components/ui/toast"
+import { User, LogOut, Bell } from 'lucide-react'
+import { useToast } from "@/hooks/use-toast"
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const { auth, config, flash } = usePage<PageProps>().props
     const { toast } = useToast()
+
     useEffect(() => {
         if (flash) {
+            console.log(flash)
             toast({
-                title: flash.status ?? 'Success',
-                description: flash.message
+                title: flash.status || 'Notification',
+                description: flash.message || '',
             })
         }
     }, [flash])
@@ -52,24 +54,37 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         </div>
                         <div className="hidden sm:ml-6 sm:flex sm:items-center">
                             {auth ? (
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                                            <User className="h-4 w-4" />
-                                        </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
-                                        <DropdownMenuItem asChild>
-                                            <Link href="/profile">Profile</Link>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem asChild>
-                                            <Link href="/logout" method="post" as="button" className="w-full text-left">
-                                                <LogOut className="mr-2 h-4 w-4" />
-                                                <span>Log out</span>
-                                            </Link>
-                                        </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
+                                <>
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                                                <Bell className="h-4 w-4" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end">
+                                            {/* We'll implement notifications here */}
+                                            <DropdownMenuItem>No new notifications</DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="ghost" className="relative h-8 w-8 rounded-full ml-2">
+                                                <User className="h-4 w-4" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end">
+                                            <DropdownMenuItem asChild>
+                                                <Link href="/profile">Profile</Link>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem asChild>
+                                                <Link href="/logout" method="post" as="button" className="w-full text-left">
+                                                    <LogOut className="mr-2 h-4 w-4" />
+                                                    <span>Log out</span>
+                                                </Link>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </>
                             ) : (
                                 <Link
                                     href="/login"
@@ -94,7 +109,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     </p>
                 </div>
             </footer>
-
             <Toaster />
         </div>
     )

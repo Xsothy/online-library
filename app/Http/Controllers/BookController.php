@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\NotificationStatusEnum;
+
 class BookController extends Controller
 {
     public function show(int $id)
@@ -13,7 +15,7 @@ class BookController extends Controller
     {
         return redirect()->route('book.show', $id)->with([
             'message' => 'Book rent created successfully!',
-            'level' => 'success'
+            'status' => NotificationStatusEnum::success()
         ]);
     }
 
@@ -21,7 +23,7 @@ class BookController extends Controller
     {
         return redirect()->route('book.show', $id)->with([
             'message' => 'Book reserve created successfully!',
-            'level' => 'success'
+            'status' => NotificationStatusEnum::success()
         ]);
     }
 }

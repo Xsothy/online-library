@@ -29,7 +29,7 @@ class ShareData extends Data
             ),
             session('message') ? new FlashData(
                 session('message'),
-                session('level')
+                session('status')
             ) : null
         );
     }
