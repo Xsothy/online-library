@@ -15,10 +15,10 @@ class RentData extends Data
         public BookData $book,
         public int $duration,
         public UserData $createdBy,
-        public UserData $updatedBy,
-        public string $createdAt,
-        public string $deliveredAt,
-        public string $receivedAt
+        public Carbon $createdAt,
+        public ?UserData $updatedBy = null,
+        public ?Carbon $deliveredAt = null,
+        public ?Carbon $receivedAt = null,
     ) {
         $this->dueAt = Carbon::parse($this->deliveredAt)->addDays($this->duration)->toDateString();
     }

@@ -14,7 +14,6 @@ interface BookShowProps extends PageProps {
 }
 
 export default function BookShow({ book, userRent, userReserve, flash }: BookShowProps) {
-    const { toast } = useToast()
     const handleRent = () => {
         router.visit(route('book.rent', book.id))
     }
@@ -22,15 +21,6 @@ export default function BookShow({ book, userRent, userReserve, flash }: BookSho
     const handleReserve = () => {
         router.visit(route('book.reserve', book.id))
     }
-
-    useEffect(() => {
-        if (flash) {
-            toast({
-                title: flash.level,
-                description: flash.message
-            })
-        }
-    }, [flash])
 
     return (
         <AppLayout>
@@ -57,7 +47,7 @@ export default function BookShow({ book, userRent, userReserve, flash }: BookSho
                                         </Badge>
                                     ))}
                                 </div>
-                                <p className="font-semibold">Published: {book.publish_at}</p>
+                                <p className="font-semibold">Published: {book.publishedAt}</p>
                                 {book.isAvailable && !userRent && !userReserve && (
                                     <Button onClick={handleRent} className="w-full">Rent</Button>
                                 )}

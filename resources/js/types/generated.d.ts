@@ -1,4 +1,11 @@
 declare namespace App.Data {
+    export type AttachmentData = {
+        id: number;
+        name: string;
+        path: string;
+        createdBy: App.Data.UserData;
+        createdAt: string;
+    };
     export type AuthData = {
         user: App.Data.UserData;
     };
@@ -7,31 +14,51 @@ declare namespace App.Data {
         id: number;
         title: string;
         description: string;
-        publish_at: string;
+        publishedAt: string | null;
         inventories: Array<App.Data.InventoryData>;
         genres: Array<App.Data.GenreData>;
+        comments: Array<App.Data.CommentData>;
+        reviews: Array<App.Data.ReviewData>;
+        cover: App.Data.AttachmentData | null;
+    };
+    export type CommentData = {
+        id: number;
+        body: string;
+        createdBy: App.Data.UserData;
+        createdAt: string;
+        parent: App.Data.CommentData | null;
+        updatedAt: string | null;
     };
     export type ConfigData = {
         app: App.Data.Config.AppConfigData;
     };
     export type FlashData = {
         message: string;
-        level: string;
+        status: App.Enum.NotificationStatusEnum | null;
     };
     export type GenreData = {
         id: number;
         name: string;
-        description: string;
+        description: string | null;
     };
     export type InventoryData = {
         id: number;
         quantity: number;
         price: number;
-        rent_price: number;
-        created_by: App.Data.UserData;
-        updated_by: App.Data.UserData;
-        created_at: string;
-        updated_at: string;
+        rentPrice: number;
+        createdBy: App.Data.UserData | null;
+        updatedBy: App.Data.UserData | null;
+        createdAt: string | null;
+        updatedAt: string | null;
+    };
+    export type NotificationData = {
+        id: number;
+        status: App.Enum.NotificationStatusEnum;
+        message: string;
+        user: App.Data.UserData;
+        link: string | null;
+        createdBy: App.Data.UserData | null;
+        createdAt: string | null;
     };
     export type RentData = {
         dueAt: string;
@@ -39,10 +66,10 @@ declare namespace App.Data {
         book: App.Data.BookData;
         duration: number;
         createdBy: App.Data.UserData;
-        updatedBy: App.Data.UserData;
         createdAt: string;
-        deliveredAt: string;
-        receivedAt: string;
+        updatedBy: App.Data.UserData | null;
+        deliveredAt: string | null;
+        receivedAt: string | null;
     };
     export type ReservationData = {
         id: number;
@@ -50,6 +77,13 @@ declare namespace App.Data {
         duration: number;
         createdBy: App.Data.UserData;
         createdAt: string;
+    };
+    export type ReviewData = {
+        id: number;
+        rating: number;
+        createdBy: App.Data.UserData;
+        createdAt: string;
+        updatedAt: string | null;
     };
     export type ShareData = {
         auth: App.Data.AuthData | null;
@@ -60,10 +94,11 @@ declare namespace App.Data {
         id: number;
         name: string;
         email: string;
+        attachments: any;
         firstName: string | null;
         lastName: string | null;
         kycStatus: App.Enum.KycStatusEnum | null;
-        emailVerifiedAt: string | null;
+        emailVerifiedAt: Array<App.Data.AttachmentData> | null;
     };
 }
 declare namespace App.Data.Config {
@@ -76,4 +111,9 @@ declare namespace App.Data.Config {
 }
 declare namespace App.Enum {
     export type KycStatusEnum = "pending" | "rejected" | "approved";
+    export type NotificationStatusEnum =
+        | "success"
+        | "warning"
+        | "danger"
+        | "info";
 }

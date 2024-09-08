@@ -4,13 +4,19 @@ use App\Data\BookData;
 use App\Data\UserData;
 use App\Data\InventoryData;
 use App\Data\GenreData;
+use App\Data\CommentData;
+use App\Data\ReviewData;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Carbon;
+$users = collect([
+    new UserData(1, 'John Doe', 'john@example.com'),
+    new UserData(2, 'Jame Doe', 'jame@example.com')
+]);
 $genres = collect([
     new GenreData(1, 'Action', 'A genre of fiction.'),
     new GenreData(2, 'Adventure', 'A genre of fiction.'),
@@ -24,81 +30,111 @@ $genres = collect([
 ]);
 $books = collect([
     new BookData(
-        1,
-        'To Kill a Mockingbird',
-        'A classic of modern American literature.',
-        '1960-07-11',
+        1, 'To Kill a Mockingbird', 'A classic of modern American literature.', new Carbon('2022-01-01'),
         collect([
-            new InventoryData(
-                1,
-                1,
-                15.99,
-                2.99,
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                '2023-01-01 00:00:00',
-                '2023-01-01 00:00:00',
-            ),
-            new InventoryData(
-                2,
-                2,
-                12.99,
-                2.49,
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                '2023-01-01 00:00:00',
-                '2023-01-01 00:00:00',
-            )
+            new InventoryData(1, 1, 15.99, 2.99),
+            new InventoryData(2, 2, 12.99, 2.49)
         ]),
-        $genres->random(rand(1, 5))
+        $genres->random(rand(1, 5)), collect([
+            new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        ]),
+        collect([
+            new ReviewData(1, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(2, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(3, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(4, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(5, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+        ]),
+        null,
     ),
     new BookData(
-        2,
-        '1984',
-        'A dystopian social science fiction novel.',
-        '1949-06-08',
+        2, 'The Catcher in the Rye', 'A classic of modern American literature.', new Carbon('2022-01-01'),
         collect([
-            new InventoryData(
-                3,
-                3,
-                9.99,
-                1.99,
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                '2023-01-01 00:00:00',
-                '2023-01-01 00:00:00',
-            ),
-            new InventoryData(
-                4,
-                4,
-                12.99,
-                2.49,
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                '2023-01-01 00:00:00',
-                '2023-01-01 00:00:00',
-            )
+            new InventoryData(1, 1, 15.99, 2.99),
+            new InventoryData(2, 2, 12.99, 2.49)
         ]),
-        $genres->random(rand(1, 5))
+        $genres->random(rand(1, 5)), collect([
+            new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        ]),
+        collect([
+            new ReviewData(1, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(2, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(3, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(4, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(5, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+        ]),
+        null,
     ),
     new BookData(
-        3,
-        'Pride and Prejudice',
-        'A romantic novel of manners.',
-        '1813-01-28',
-        collect([
-            new InventoryData(
-                5,
-                0,
-                9.99,
-                1.99,
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                new UserData(1, 'John Doe', 'john@example.com', 'John', 'Doe', null, null),
-                '2023-01-01 00:00:00',
-                '2023-01-01 00:00:00',
-            )
+        3, 'The Great Gatsby', 'A classic of modern American literature.', new Carbon('2022-01-01'),
+        collect(),
+        $genres->random(rand(1, 5)), collect([
+            new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
         ]),
-        $genres->random(rand(1, 5))
+        collect([
+            new ReviewData(1, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(2, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(3, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(4, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(5, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+        ]),
+        null,
+    ),
+    new BookData(
+        4, 'The Lord of the Rings', 'A classic of modern American literature.', new Carbon('2022-01-01'),
+        collect([
+            new InventoryData(1, 1, 15.99, 2.99),
+            new InventoryData(2, 2, 12.99, 2.49)
+        ]),
+        $genres->random(rand(1, 5)), collect([
+            new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        ]),
+        collect([
+            new ReviewData(1, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(2, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(3, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(4, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(5, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+        ]),
+        null,
+    ),
+    new BookData(
+        5, 'The Hobbit', 'A classic of modern American literature.', new Carbon('2022-01-01'),
+        collect([
+            new InventoryData(1, 1, 15.99, 2.99),
+            new InventoryData(2, 2, 12.99, 2.49)
+        ]),
+        $genres->random(rand(1, 5)), collect([
+            new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+            new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        ]),
+        collect([
+            new ReviewData(1, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(2, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(3, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(4, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+            new ReviewData(5, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
+        ]),
+        null,
     )
 ]);
 

@@ -13,7 +13,7 @@ class ShareData extends Data
     public function __construct(
         public ?AuthData $auth,
         public ConfigData $config,
-        public ?FlashData $flash,
+        public ?FlashData $flash = null,
     )
     {
     }

@@ -2,13 +2,14 @@
 
 namespace App\Data;
 
+use App\Enum\NotificationStatusEnum;
 use Spatie\LaravelData\Data;
 
 class FlashData extends Data
 {
     public function __construct(
         public string $message,
-        public string $level,
+        public ?NotificationStatusEnum $status = new NotificationStatusEnum('success'),
     ) {
     }
 }

@@ -48,7 +48,7 @@ export default function RentPage({ book }: RentPageProps) {
                                     ))}
                                 </div>
                                 {firstInventory && (
-                                    <p className="font-semibold">Rent Price: ${firstInventory.rent_price.toFixed(2)} per day</p>
+                                    <p className="font-semibold">Rent Price: ${firstInventory.rentPrice.toFixed(2)} per day</p>
                                 )}
                                 <form onSubmit={handleRent} className="space-y-4">
                                     <div className="space-y-2">
@@ -63,7 +63,7 @@ export default function RentPage({ book }: RentPageProps) {
                                     </div>
                                     {firstInventory && (
                                         <p className="font-semibold">
-                                            Total Cost: ${(duration * firstInventory.rent_price).toFixed(2)}
+                                            Total Cost: ${(duration * firstInventory.rentPrice).toFixed(2)}
                                         </p>
                                     )}
                                     <Button type="submit" className="w-full">Confirm Rent</Button>

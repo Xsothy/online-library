@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link, usePage } from '@inertiajs/react'
+import React, {useEffect} from 'react'
+import {Link, useForm, usePage} from '@inertiajs/react'
 import { Toaster } from "@/Components/ui/toaster"
 import { PageProps } from '@/types'
 import { Button } from "@/Components/ui/button"
@@ -10,9 +10,19 @@ import {
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
 import { User, LogOut } from 'lucide-react'
+import {useToast} from "@/hooks/use-toast";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-    const { auth, config } = usePage<PageProps>().props
+    const { auth, config, flash } = usePage<PageProps>().props
+    const { toast } = useToast()
+    useEffect(() => {
+        if (flash) {
+            toast({
+                title: flash.status ?? 'Success',
+                description: flash.message
+            })
+        }
+    }, [flash])
 
     return (
         <div className="min-h-screen bg-background text-foreground dark">
@@ -41,7 +51,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                             </div>
                         </div>
                         <div className="hidden sm:ml-6 sm:flex sm:items-center">
-                            {auth?.user ? (
+                            {auth ? (
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <Button variant="ghost" className="relative h-8 w-8 rounded-full">

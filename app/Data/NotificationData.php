@@ -2,20 +2,20 @@
 
 namespace App\Data;
 
+use App\Enum\NotificationStatusEnum;
 use Carbon\Carbon;
 use Spatie\LaravelData\Data;
 
-class InventoryData extends Data
+class NotificationData extends Data
 {
     public function __construct(
         public int $id,
-        public int $quantity,
-        public float $price,
-        public float $rentPrice,
+        public NotificationStatusEnum $status,
+        public string $message,
+        public UserData $user,
+        public ?string $link = null,
         public ?UserData $createdBy = null,
-        public ?UserData $updatedBy = null,
         public ?Carbon $createdAt = null,
-        public ?Carbon $updatedAt = null,
     )
     {
     }
