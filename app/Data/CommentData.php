@@ -3,6 +3,7 @@
 namespace App\Data;
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 
 class CommentData extends Data
@@ -12,7 +13,11 @@ class CommentData extends Data
         public string $body,
         public UserData $createdBy,
         public Carbon $createdAt,
-        public ?CommentData $parent = null,
+        /**
+         * @var Collection<CommentData>
+         * @typescript CommentData[]
+         */
+        public Collection $replies = new Collection,
         public ?Carbon $updatedAt = null,
     )
     {

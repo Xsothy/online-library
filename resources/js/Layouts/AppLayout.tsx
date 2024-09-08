@@ -45,7 +45,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     Home
                                 </Link>
                                 <Link
-                                    href="/book"
+                                    href={route('book.index')}
                                     className="border-transparent text-muted-foreground hover:text-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                                 >
                                     Books
@@ -57,7 +57,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 <>
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
-                                            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                                            <Button variant="ghost" size="icon" className="relative h-8 w-8 rounded-full">
                                                 <Bell className="h-4 w-4" />
                                             </Button>
                                         </DropdownMenuTrigger>
@@ -68,16 +68,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     </DropdownMenu>
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
-                                            <Button variant="ghost" className="relative h-8 w-8 rounded-full ml-2">
+                                            <Button variant="ghost" size="icon" className="relative h-8 w-8 rounded-full ml-2">
                                                 <User className="h-4 w-4" />
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
                                             <DropdownMenuItem asChild>
-                                                <Link href="/profile">Profile</Link>
+                                                <Link href={route('profile.edit')}>Profile</Link>
                                             </DropdownMenuItem>
                                             <DropdownMenuItem asChild>
-                                                <Link href="/logout" method="post" as="button" className="w-full text-left">
+                                                <Link href={route('logout')} method="post" as="button" className="w-full text-left">
                                                     <LogOut className="mr-2 h-4 w-4" />
                                                     <span>Log out</span>
                                                 </Link>
@@ -87,7 +87,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 </>
                             ) : (
                                 <Link
-                                    href="/login"
+                                    href={route('login', {
+                                        redirect: route('dashboard'),
+                                    })}
                                     className="text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm font-medium"
                                 >
                                     Login
@@ -99,7 +101,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </nav>
 
             <main>
-                <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">{children}</div>
+                <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                    {children}
+                </div>
             </main>
 
             <footer className="border-t border-border">

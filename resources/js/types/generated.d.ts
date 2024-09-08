@@ -14,6 +14,7 @@ declare namespace App.Data {
         id: number;
         title: string;
         description: string;
+        author: string;
         publishedAt: string | null;
         inventories: Array<App.Data.InventoryData>;
         genres: Array<App.Data.GenreData>;
@@ -26,7 +27,7 @@ declare namespace App.Data {
         body: string;
         createdBy: App.Data.UserData;
         createdAt: string;
-        parent: App.Data.CommentData | null;
+        replies: Array<App.Data.CommentData>;
         updatedAt: string | null;
     };
     export type ConfigData = {
@@ -94,11 +95,11 @@ declare namespace App.Data {
         id: number;
         name: string;
         email: string;
-        attachments: any;
+        attachments: Array<App.Data.AttachmentData>;
         firstName: string | null;
         lastName: string | null;
         kycStatus: App.Enum.KycStatusEnum | null;
-        emailVerifiedAt: Array<App.Data.AttachmentData> | null;
+        emailVerifiedAt: string | null;
     };
 }
 declare namespace App.Data.Config {

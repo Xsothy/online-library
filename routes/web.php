@@ -30,7 +30,10 @@ $genres = collect([
 ]);
 $books = collect([
     new BookData(
-        1, 'To Kill a Mockingbird', 'A classic of modern American literature.', new Carbon('2022-01-01'),
+        1, 'To Kill a Mockingbird',
+        'A classic of modern American literature. It is a novel about a young boy named Jem, who is wrongfully accused of a crime he did not commit. He is then wrongly convicted and imprisoned, and his family is torn apart by the trial and its aftermath.',
+        'Harper Lee',
+        new Carbon('2022-01-01'),
         collect([
             new InventoryData(1, 1, 15.99, 2.99),
             new InventoryData(2, 2, 12.99, 2.49)
@@ -52,7 +55,10 @@ $books = collect([
         null,
     ),
     new BookData(
-        2, 'The Catcher in the Rye', 'A classic of modern American literature.', new Carbon('2022-01-01'),
+        2, 'The Catcher in the Rye',
+        'A classic of modern American literature. The novel follows the life of Holden Caulfield, a teenage boy who is struggling to find his place in the world.',
+        'J.D. Salinger',
+        new Carbon('2022-01-01'),
         collect([
             new InventoryData(1, 1, 15.99, 2.99),
             new InventoryData(2, 2, 12.99, 2.49)
@@ -74,7 +80,10 @@ $books = collect([
         null,
     ),
     new BookData(
-        3, 'The Great Gatsby', 'A classic of modern American literature.', new Carbon('2022-01-01'),
+        3, 'The Great Gatsby',
+        'A classic of modern American literature. Set in the 1920s, the novel follows the life of Jay Gatsby, a wealthy and mysterious man who is obsessed with the idea of love.',
+        'F. Scott Fitzgerald',
+        new Carbon('2022-01-01'),
         collect(),
         $genres->random(rand(1, 5)), collect([
             new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
@@ -93,7 +102,10 @@ $books = collect([
         null,
     ),
     new BookData(
-        4, 'The Lord of the Rings', 'A classic of modern American literature.', new Carbon('2022-01-01'),
+        4, 'The Lord of the Rings',
+        'A classic of modern American literature. It is a novel about hobbits, dwarves, and wizards, set in Middle-earth, a fictional world created by J.R.R. Tolkien.',
+        'J.R.R. Tolkien',
+        new Carbon('2022-01-01'),
         collect([
             new InventoryData(1, 1, 15.99, 2.99),
             new InventoryData(2, 2, 12.99, 2.49)
@@ -115,7 +127,10 @@ $books = collect([
         null,
     ),
     new BookData(
-        5, 'The Hobbit', 'A classic of modern American literature.', new Carbon('2022-01-01'),
+        5, 'The Hobbit',
+        'A classic of modern American literature. It is a novel about hobbits, dwarves, and wizards, set in Middle-earth, a fictional world created by J.R.R. Tolkien.',
+        'J.R.R. Tolkien',
+        new Carbon('2022-01-01'),
         collect([
             new InventoryData(1, 1, 15.99, 2.99),
             new InventoryData(2, 2, 12.99, 2.49)

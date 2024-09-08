@@ -15,6 +15,7 @@ class BookData extends Data
         public int $id,
         public string $title,
         public string $description,
+        public string $author,
         public ?Carbon $publishedAt = null,
         /**
          * @var Collection<InventoryData>
