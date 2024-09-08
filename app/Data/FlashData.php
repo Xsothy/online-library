@@ -9,7 +9,7 @@ class FlashData extends Data
 {
     public function __construct(
         public string $message,
-        public ?NotificationStatusEnum $status = new NotificationStatusEnum('success'),
+        public ?NotificationStatusEnum $status = null,
     ) {
     }
 }

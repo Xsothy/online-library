@@ -3,6 +3,7 @@
 namespace App\Data;
 
 use App\Data\Config\AppConfigData;
+use App\Enum\NotificationStatusEnum;
 use Illuminate\Http\Request;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\Optional;
@@ -29,7 +30,7 @@ class ShareData extends Data
             ),
             session('message') ? new FlashData(
                 session('message'),
-                session('status')
+                NotificationStatusEnum::tryFrom(session('status'))
             ) : null
         );
     }

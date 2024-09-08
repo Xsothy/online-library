@@ -153,12 +153,19 @@ $books = collect([
     )
 ]);
 
-Route::inertia('/', 'Welcome', [
-    'canLogin' => Route::has('login'),
-    'canRegister' => Route::has('register'),
-    'laravelVersion' => Application::VERSION,
-    'phpVersion' => PHP_VERSION,
-]);
+//Route::inertia('/', 'Welcome', [
+//    'canLogin' => Route::has('login'),
+//    'canRegister' => Route::has('register'),
+//    'laravelVersion' => Application::VERSION,
+//    'phpVersion' => PHP_VERSION,
+//]);
+
+Route::inertia('/', 'Home', [
+    'recommendations' => $books->random(5),
+    'popularAuthors' => [],
+    'popularBooks' => $books->random(5),
+    'genres' => $genres,
+])->name('home');
 
 Route::inertia('/book', 'Book/index', [
     'books' => $books,

@@ -29,11 +29,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $redirectTo = $request->get('redirect_to') ?? route('home', absolute: false);
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended($redirectTo);
     }
 
     /**
@@ -47,6 +49,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with([
+            'message' => __('You are logged out.'),
+            'status' => 'danger'
+        ]);
     }
 }
