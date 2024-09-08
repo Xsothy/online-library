@@ -8,7 +8,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Toaster } from "@/Components/ui/toast"
+import { Toaster } from "@/Components/ui/toaster"
 import { User, LogOut, Bell } from 'lucide-react'
 import { useToast } from "@/hooks/use-toast"
 
