@@ -5,7 +5,9 @@ import React from "react";
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import {QueryClient, QueryClientProvider} from "react-query";
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const queryClient = new QueryClient();
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -13,7 +15,11 @@ createInertiaApp({
     setup({ el, App, props }) {
         document.querySelector('body')?.classList.add('dark');
         const root = createRoot(el);
-        root.render(<App {...props} />);
+        root.render(
+            <QueryClientProvider client={queryClient} contextSharing={true}>
+                <App {...props} />
+            </QueryClientProvider>
+        );
 
     },
     progress: {

@@ -206,10 +206,15 @@ Route::get('/book/{id}/reserve', function (int $id) use ($books) {
 Route::post('book/{id}/rent', [BookController::class, 'createRent'])->name('book.rent.create');
 Route::post('book/{id}/reserve', [BookController::class, 'createReserve'])->name('book.reserve.create');
 
+Route::group(['prefix' => 'api'], function () {
+    Route::resource('users', UserController::class);
+
+});
+
 Route::middleware('auth')->group(function () {
 
-    Route::get("/admin/{resource?}/{action?}/{id?}", [AdminController::class, 'index']);
-    Route::resource('users', UserController::class);
+    Route::inertia("/admin", 'Admin/index')->name('admin.index');
+    Route::inertia("/admin/users", 'Admin/User/list')->name('admin.users.list');
 
     Route::inertia('/dashboard', 'Dashboard')->middleware(['verified'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
