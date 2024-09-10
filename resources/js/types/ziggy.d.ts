@@ -2,35 +2,36 @@
 declare module 'ziggy-js' {
   interface RouteList {
     "sanctum.csrf-cookie": [],
+    "home": [],
     "book.index": [],
-    "users.index": [],
-    "users.create": [],
-    "users.store": [],
-    "users.show": [
+    "book.show": [
         {
-            "name": "user",
-            "required": true,
-            "binding": "id"
-        }
-    ],
-    "users.edit": [
-        {
-            "name": "user",
+            "name": "id",
             "required": true
         }
     ],
-    "users.update": [
+    "book.rent": [
         {
-            "name": "user",
-            "required": true,
-            "binding": "id"
+            "name": "id",
+            "required": true
         }
     ],
-    "users.destroy": [
+    "book.reserve": [
         {
-            "name": "user",
-            "required": true,
-            "binding": "id"
+            "name": "id",
+            "required": true
+        }
+    ],
+    "book.rent.create": [
+        {
+            "name": "id",
+            "required": true
+        }
+    ],
+    "book.reserve.create": [
+        {
+            "name": "id",
+            "required": true
         }
     ],
     "dashboard": [],
@@ -62,11 +63,23 @@ declare module 'ziggy-js' {
     "verification.send": [],
     "password.confirm": [],
     "password.update": [],
-    "logout": []
+    "logout": [],
+    "api.book.index": []
 }
   interface Routes {
     "sanctum.csrf-cookie": {
         "uri": "sanctum\/csrf-cookie",
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "parameters": [],
+        "middleware": [
+            "web"
+        ]
+    },
+    "home": {
+        "uri": "\/",
         "methods": [
             "GET",
             "HEAD"
@@ -87,109 +100,82 @@ declare module 'ziggy-js' {
             "web"
         ]
     },
-    "users.index": {
-        "uri": "users",
-        "methods": [
-            "GET",
-            "HEAD"
-        ],
-        "parameters": [],
-        "middleware": [
-            "web",
-            "auth"
-        ]
-    },
-    "users.create": {
-        "uri": "users\/create",
-        "methods": [
-            "GET",
-            "HEAD"
-        ],
-        "parameters": [],
-        "middleware": [
-            "web",
-            "auth"
-        ]
-    },
-    "users.store": {
-        "uri": "users",
-        "methods": [
-            "POST"
-        ],
-        "parameters": [],
-        "middleware": [
-            "web",
-            "auth"
-        ]
-    },
-    "users.show": {
-        "uri": "users\/{user}",
+    "book.show": {
+        "uri": "book\/{id}",
         "methods": [
             "GET",
             "HEAD"
         ],
         "parameters": [
             {
-                "name": "user",
-                "required": true,
-                "binding": "id"
-            }
-        ],
-        "middleware": [
-            "web",
-            "auth"
-        ]
-    },
-    "users.edit": {
-        "uri": "users\/{user}\/edit",
-        "methods": [
-            "GET",
-            "HEAD"
-        ],
-        "parameters": [
-            {
-                "name": "user",
+                "name": "id",
                 "required": true
             }
         ],
         "middleware": [
-            "web",
-            "auth"
+            "web"
         ]
     },
-    "users.update": {
-        "uri": "users\/{user}",
+    "book.rent": {
+        "uri": "book\/{id}\/rent",
         "methods": [
-            "PUT",
-            "PATCH"
+            "GET",
+            "HEAD"
         ],
         "parameters": [
             {
-                "name": "user",
-                "required": true,
-                "binding": "id"
+                "name": "id",
+                "required": true
             }
         ],
         "middleware": [
-            "web",
-            "auth"
+            "web"
         ]
     },
-    "users.destroy": {
-        "uri": "users\/{user}",
+    "book.reserve": {
+        "uri": "book\/{id}\/reserve",
         "methods": [
-            "DELETE"
+            "GET",
+            "HEAD"
         ],
         "parameters": [
             {
-                "name": "user",
-                "required": true,
-                "binding": "id"
+                "name": "id",
+                "required": true
             }
         ],
         "middleware": [
-            "web",
-            "auth"
+            "web"
+        ]
+    },
+    "book.rent.create": {
+        "uri": "book\/{id}\/rent",
+        "methods": [
+            "POST"
+        ],
+        "parameters": [
+            {
+                "name": "id",
+                "required": true
+            }
+        ],
+        "middleware": [
+            "web"
+        ]
+    },
+    "book.reserve.create": {
+        "uri": "book\/{id}\/reserve",
+        "methods": [
+            "POST"
+        ],
+        "parameters": [
+            {
+                "name": "id",
+                "required": true
+            }
+        ],
+        "middleware": [
+            "web"
         ]
     },
     "dashboard": {
@@ -393,6 +379,17 @@ declare module 'ziggy-js' {
         "middleware": [
             "web",
             "auth"
+        ]
+    },
+    "api.book.index": {
+        "uri": "api\/books",
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "parameters": [],
+        "middleware": [
+            "web"
         ]
     }
 }

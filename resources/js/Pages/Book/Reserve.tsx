@@ -21,11 +21,11 @@ export default function ReservePage({ book }: ReservePageProps) {
 
     return (
         <AppLayout>
-            <Card className="max-w-2xl mx-auto">
+            <Card className="max-w-3xl mx-auto">
                 <div className="sm:flex">
                     <div className="sm:w-1/3 aspect-[1/1.6] relative">
                         <img
-                            src="/placeholder.svg?height=512&width=320"
+                            src="/placeholder.png?height=512&width=320"
                             alt={book.title}
                             className="w-full h-full object-cover"
                         />

@@ -52,7 +52,7 @@ export default function BookShow({ book, userRent, userReservation, relatedBooks
                         <CardContent className="p-4">
                             <div className="aspect-[1/1.6] relative mb-4">
                                 <img
-                                    src={book.cover?.path || "/placeholder.svg?height=512&width=320"}
+                                    src={book.cover?.path || "/placeholder.png?height=512&width=320"}
                                     alt={book.title}
                                     className="w-full h-full object-cover"
                                 />
