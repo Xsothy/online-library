@@ -54,7 +54,7 @@ export default function Home({ recommendations,
                                 <Link href={route('book.show', book.id)}>
                                     <Card className="bg-[#1E1E1E] hover:bg-[#2A2A2A] transition-colors">
                                         <CardContent className="p-4">
-                                            <img src={book.cover?.path || '/placeholder.png'} alt={book.title} className="w-full aspect-[1/1.6] object-cover mb-4 rounded" />
+                                            <img src={book.cover?.path || '/placeholder.png'} alt={book.title} className="w-full aspect-[1/1.4] object-cover mb-4 rounded" />
                                             <h3 className="text-lg font-semibold truncate">{book.title}</h3>
                                             <p className="text-sm text-gray-400 truncate">{book.author}</p>
                                         </CardContent>
@@ -111,7 +111,7 @@ export default function Home({ recommendations,
                                 <Link href={route('book.show', book.id)}>
                                     <Card className="bg-[#1E1E1E] hover:bg-[#2A2A2A] transition-colors">
                                         <CardContent className="p-4">
-                                            <img src={book.cover?.path || '/placeholder.png'} alt={book.title} className="w-full aspect-[1/1.6] object-cover mb-4 rounded" />
+                                            <img src={book.cover?.path || '/placeholder.png'} alt={book.title} className="w-full aspect-[1/1.4] object-cover mb-4 rounded" />
                                             <h3 className="text-lg font-semibold truncate">{book.title}</h3>
                                             <p className="text-sm text-gray-400 truncate">{book.author}</p>
                                             <Badge variant={book.isAvailable ? "default" : "destructive"} className="mt-2">

@@ -196,6 +196,10 @@ Route::get('/book/{id}/reserve', function (int $id) use ($books) {
     ]);
 })->name('book.reserve');
 
+Route::inertia('/genre', 'Genre', [
+    'genres' => $genres,
+])->name('genre');
+
 Route::post('book/{id}/rent', [BookController::class, 'createRent'])->name('book.rent.create');
 Route::post('book/{id}/reserve', [BookController::class, 'createReserve'])->name('book.reserve.create');
 
