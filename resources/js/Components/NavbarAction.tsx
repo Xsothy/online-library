@@ -11,12 +11,20 @@ import {Link} from "@inertiajs/react";
 import React from "react";
 export default function NavbarAction({auth}: {auth: App.Data.AuthData | null}) {
     if (!auth) return (
-        <Link
-            href={route('login')}
-            className="text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm font-medium"
-        >
-            Login
-        </Link>
+        <div className="flex items-center space-x-4">
+            <Link
+                href={route('login')}
+                className="text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm font-medium"
+            >
+                Login
+            </Link>
+            <Link
+                href={route('register')}
+                className="text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm font-medium"
+            >
+                Register
+            </Link>
+        </div>
     );
     return (
         <div className="flex items-center space-x-4">

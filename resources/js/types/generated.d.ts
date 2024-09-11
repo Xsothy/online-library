@@ -96,6 +96,7 @@ declare namespace App.Data {
         name: string;
         email: string;
         attachments: Array<App.Data.AttachmentData>;
+        phoneNumber: string | null;
         firstName: string | null;
         lastName: string | null;
         kycStatus: App.Enum.KycStatusEnum | null;

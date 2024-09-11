@@ -5,9 +5,9 @@ namespace App\Data;
 use App\Enum\KycStatusEnum;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
+use Spatie\LaravelData\Attributes\Validation\Enum;
 use Spatie\LaravelData\Data;
+use Illuminate\Validation\Rules;
 class UserData extends Data
 {
     public function __construct(
@@ -19,11 +19,30 @@ class UserData extends Data
          * @typescript AttachmentData[]
          */
         public Collection $attachments = new Collection(),
+        public ?string $phoneNumber = null,
         public ?string $firstName = null,
         public ?string $lastName = null,
         public ?KycStatusEnum $kycStatus = null,
         public ?Carbon $emailVerifiedAt = null,
     )
     {
+    }
+
+    public static function rules(): array
+    {
+        return [
+            'id' => ['nullable', 'integer'],
+            'firstName' => ['nullable', 'string', 'max:255'],
+            'lastName' => ['nullable', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone_number' => ['nullable', 'string', 'max:255'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'kycStatus' => ['nullable', Enum::create(KycStatusEnum::class)],
+            'studentCardFront' => ['nullable', 'image', 'max:1024'],
+            'studentCardBack' => ['nullable', 'image', 'max:1024'],
+            'idCardFront' => ['nullable', 'image', 'max:1024'],
+            'idCardBack' => ['nullable', 'image', 'max:1024'],
+        ];
     }
 }
