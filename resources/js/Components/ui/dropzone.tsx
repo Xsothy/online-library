@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import { useDropzone, DropzoneOptions } from 'react-dropzone'
 import { Button } from "@/Components/ui/button"
 import { X } from 'lucide-react'
@@ -9,13 +9,12 @@ export interface DropzoneProps extends DropzoneOptions {
 }
 
 export function Dropzone({ onFileChange, value, ...props }: DropzoneProps) {
-    const [preview, setPreview] = useState<string | null>(null)
+    const preview = (value && URL.createObjectURL(value)) || null
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         if (acceptedFiles.length > 0) {
             const file = acceptedFiles[0]
             onFileChange(file)
-            setPreview(URL.createObjectURL(file))
         }
     }, [onFileChange])
 
@@ -27,7 +26,6 @@ export function Dropzone({ onFileChange, value, ...props }: DropzoneProps) {
 
     const removeFile = () => {
         onFileChange(null)
-        setPreview(null)
     }
 
     if (value && preview) {

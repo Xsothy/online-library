@@ -3,18 +3,13 @@ import GuestLayout from '@/Layouts/GuestLayout'
 import { Head, Link, useForm } from '@inertiajs/react'
 import { Input } from "@/Components/ui/input"
 import { Label } from "@/Components/ui/label"
-import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent } from "@/Components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs"
 import { Dropzone } from "@/Components/ui/dropzone"
 import { Stepper, Step } from "@/Components/ui/stepper"
 import { Settings, FolderPlus, FileText, MessageSquarePlus } from 'lucide-react'
-import { Button } from "@/Components/ui/button"
 
 export default function Register() {
-    const { toast } = useToast()
-    const [orientation, setOrientation] = useState<'vertical' | 'horizontal'>('vertical')
-
     type FormDataType = Omit<
         App.Data.UserData,
         | 'id'
@@ -63,7 +58,7 @@ export default function Register() {
     return (
         <GuestLayout wrapperClassName={"sm:max-w-2xl"}>
             <Head title="Register" />
-            <Stepper onComplete={handleSubmit} orientation={orientation} errors={errors}>
+            <Stepper onComplete={handleSubmit} orientation={'vertical'} errors={errors}>
                 <Step
                     name={1}
                     title="Personal Information"
