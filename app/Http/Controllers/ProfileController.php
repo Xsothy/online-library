@@ -31,7 +31,12 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $request->user()->fill(
+            UserData::from([
+                'id' => $request->user()->id,
+                ...$request->validated()
+            ])->toArray()
+        );
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
@@ -61,5 +66,24 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function wishlist(Request $request): Response
+    {
+        return Inertia::render('Profile/Wishlist');
+    }
+
+    public function paymentHistory(Request $request): Response
+    {
+        return Inertia::render('Profile/PaymentHistory');
+    }
+
+    public function reservations(Request $request): Response
+    {
+        return Inertia::render('Profile/ReservationList');
+    }
+    public function rentHistory(Request $request): Response
+    {
+        return Inertia::render('Profile/RentHistory');
     }
 }

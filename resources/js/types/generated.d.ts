@@ -52,6 +52,12 @@ declare namespace App.Data {
         createdAt: string | null;
         updatedAt: string | null;
     };
+    export type InvoiceData = {
+        id: number;
+        book: App.Data.BookData;
+        createdBy: App.Data.UserData;
+        createdAt: string;
+    };
     export type NotificationData = {
         id: number;
         status: App.Enum.NotificationStatusEnum;
@@ -60,6 +66,12 @@ declare namespace App.Data {
         link: string | null;
         createdBy: App.Data.UserData | null;
         createdAt: string | null;
+    };
+    export type PaymentData = {
+        dueAt: string;
+        id: number;
+        invoice: App.Data.InvoiceData;
+        createdAt: string;
     };
     export type RentData = {
         dueAt: string;
@@ -96,6 +108,9 @@ declare namespace App.Data {
         name: string;
         email: string;
         attachments: Array<App.Data.AttachmentData>;
+        reservations: Array<App.Data.ReservationData>;
+        rents: Array<App.Data.RentData>;
+        wishList: Array<App.Data.BookData>;
         phoneNumber: string | null;
         firstName: string | null;
         lastName: string | null;

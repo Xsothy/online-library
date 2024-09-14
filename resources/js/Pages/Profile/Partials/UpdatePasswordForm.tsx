@@ -1,16 +1,16 @@
 import { useRef, FormEventHandler } from 'react';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
+import { Button } from "@/Components/ui/button"
+import { Input } from "@/Components/ui/input"
+import { Label } from "@/Components/ui/label"
+import { useToast } from "@/hooks/use-toast"
 
 export default function UpdatePasswordForm({ className = '' }: { className?: string }) {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
+    const { toast } = useToast()
 
-    const { data, setData, errors, put, reset, processing, recentlySuccessful } = useForm({
+    const { data, setData, errors, put, reset, processing } = useForm({
         current_password: '',
         password: '',
         password_confirmation: '',
@@ -21,7 +21,13 @@ export default function UpdatePasswordForm({ className = '' }: { className?: str
 
         put(route('password.update'), {
             preserveScroll: true,
-            onSuccess: () => reset(),
+            onSuccess: () => {
+                reset()
+                toast({
+                    title: "Password updated",
+                    description: "Your password has been successfully updated.",
+                })
+            },
             onError: (errors) => {
                 if (errors.password) {
                     reset('password', 'password_confirmation');
@@ -39,73 +45,59 @@ export default function UpdatePasswordForm({ className = '' }: { className?: str
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Update Password</h2>
-
-                <p className="mt-1 text-sm text-gray-600">
+                <h2 className="text-lg font-medium">Update Password</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
                     Ensure your account is using a long, random password to stay secure.
                 </p>
             </header>
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="current_password" value="Current Password" />
-
-                    <TextInput
+                <div className="space-y-2">
+                    <Label htmlFor="current_password">Current Password</Label>
+                    <Input
                         id="current_password"
                         ref={currentPasswordInput}
                         value={data.current_password}
                         onChange={(e) => setData('current_password', e.target.value)}
                         type="password"
-                        className="mt-1 block w-full"
                         autoComplete="current-password"
                     />
-
-                    <InputError message={errors.current_password} className="mt-2" />
+                    {errors.current_password && (
+                        <p className="text-sm text-destructive">{errors.current_password}</p>
+                    )}
                 </div>
 
-                <div>
-                    <InputLabel htmlFor="password" value="New Password" />
-
-                    <TextInput
+                <div className="space-y-2">
+                    <Label htmlFor="password">New Password</Label>
+                    <Input
                         id="password"
                         ref={passwordInput}
                         value={data.password}
                         onChange={(e) => setData('password', e.target.value)}
                         type="password"
-                        className="mt-1 block w-full"
                         autoComplete="new-password"
                     />
-
-                    <InputError message={errors.password} className="mt-2" />
+                    {errors.password && (
+                        <p className="text-sm text-destructive">{errors.password}</p>
+                    )}
                 </div>
 
-                <div>
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
+                <div className="space-y-2">
+                    <Label htmlFor="password_confirmation">Confirm Password</Label>
+                    <Input
                         id="password_confirmation"
                         value={data.password_confirmation}
                         onChange={(e) => setData('password_confirmation', e.target.value)}
                         type="password"
-                        className="mt-1 block w-full"
                         autoComplete="new-password"
                     />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
+                    {errors.password_confirmation && (
+                        <p className="text-sm text-destructive">{errors.password_confirmation}</p>
+                    )}
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
-
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600">Saved.</p>
-                    </Transition>
+                    <Button type="submit" disabled={processing}>Save</Button>
                 </div>
             </form>
         </section>

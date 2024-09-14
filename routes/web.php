@@ -6,16 +6,14 @@ use App\Data\InventoryData;
 use App\Data\GenreData;
 use App\Data\CommentData;
 use App\Data\ReviewData;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Carbon;
+
 $users = collect([
     new UserData(1, 'John Doe', 'john@example.com'),
-    new UserData(2, 'Jame Doe', 'jame@example.com')
+    new UserData(2, 'Jame Doe', 'jame@example.com'),
 ]);
 $genres = collect([
     new GenreData(1, 'Action', 'A genre of fiction.'),
@@ -160,54 +158,62 @@ Route::inertia('/', 'Home', [
     'genres' => $genres,
 ])->name('home');
 
-Route::inertia('/book', 'Book/index', [
-    'books' => $books,
-    'genres' => $genres,
-])->name('book.index');
+Route::group(['prefix' => 'book'], function () use ($books, $genres) {
+    Route::inertia('/', 'Book/index', [
+        'books' => $books,
+        'genres' => $genres,
+    ])->name('book.index');
+    Route::get('/{id}', function (int $id) use ($books) {
+        $book = collect($books)->first(fn ($book) => $book->id === $id);
+        if (!$book) {
+            abort(404);
+        }
+        return inertia('Book/Show', [
+            'book' => $book,
+            'relatedBooks' => $books->random(3)
+        ]);
+    })->name('book.show');
+    Route::group(['middleware' => 'auth'], function () use ($books) {
+        Route::get('/{id}/rent', function (int $id) use ($books) {
+            $book = collect($books)->first(fn($book) => $book->id === $id);
+            if (!$book) {
+                abort(404);
+            }
+            return inertia('Book/Rent', [
+                'book' => $book,
+            ]);
+        })->name('book.rent');
+        Route::get('/{id}/reserve', function (int $id) use ($books) {
+            $book = collect($books)->first(fn($book) => $book->id === $id);
+            if (!$book) {
+                abort(404);
+            }
+            return inertia('Book/Reserve', [
+                'book' => $book,
+            ]);
+        })->name('book.reserve');
+        Route::post('/{id}/rent', [BookController::class, 'createRent'])->name('book.rent.create');
+        Route::post('/{id}/reserve', [BookController::class, 'createReserve'])->name('book.reserve.create');
+    });
+});
 
-Route::get('/book/{id}', function (int $id) use ($books) {
-    $book = collect($books)->first(fn ($book) => $book->id === $id);
-    if (!$book) {
-        abort(404);
-    }
-    return inertia('Book/Show', [
-        'book' => $book,
-        'relatedBooks' => $books->random(3)
-    ]);
-})->name('book.show');
-
-Route::get('/book/{id}/rent', function (int $id) use ($books) {
-    $book = collect($books)->first(fn ($book) => $book->id === $id);
-    if (!$book) {
-        abort(404);
-    }
-    return inertia('Book/Rent', [
-        'book' => $book,
-    ]);
-})->name('book.rent');
-
-Route::get('/book/{id}/reserve', function (int $id) use ($books) {
-    $book = collect($books)->first(fn ($book) => $book->id === $id);
-    if (!$book) {
-        abort(404);
-    }
-    return inertia('Book/Reserve', [
-        'book' => $book,
-    ]);
-})->name('book.reserve');
-
-Route::inertia('/genre', 'Genre', [
-    'genres' => $genres,
-])->name('genre');
-
-Route::post('book/{id}/rent', [BookController::class, 'createRent'])->name('book.rent.create');
-Route::post('book/{id}/reserve', [BookController::class, 'createReserve'])->name('book.reserve.create');
+Route::group(['prefix' => 'genre'], function () use ($genres) {
+    Route::inertia('/', 'Genre', [
+        'genres' => $genres,
+    ])->name('genre');
+});
 
 Route::middleware('auth')->group(function () {
     Route::inertia('/dashboard', 'Dashboard')->middleware(['verified'])->name('dashboard');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/wishlist', [ProfileController::class, 'wishlist'])->name('profile.wishlist');
+        Route::get('/payment-history', [ProfileController::class, 'paymentHistory'])->name('profile.payment-history');
+        Route::get('/reservations', [ProfileController::class, 'reservations'])->name('profile.reservations');
+        Route::get('/rent-history', [ProfileController::class, 'rentHistory'])->name('profile.rent-history');
+    });
 });
 
 require __DIR__.'/auth.php';

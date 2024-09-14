@@ -3,13 +3,21 @@
 namespace App\Data;
 
 use App\Enum\KycStatusEnum;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\Rule;
+use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\Validation\Enum;
 use Spatie\LaravelData\Data;
 use Illuminate\Validation\Rules;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\LaravelData\Support\Validation\ValidationContext;
+
+#[MapInputName(SnakeCaseMapper::class)]
 class UserData extends Data
 {
+
     public function __construct(
         public int $id,
         public string $name,
@@ -19,6 +27,21 @@ class UserData extends Data
          * @typescript AttachmentData[]
          */
         public Collection $attachments = new Collection(),
+        /**
+         * @var Collection<ReservationData>
+         * @typescript ReservationData[]
+         */
+        public Collection $reservations = new Collection(),
+        /**
+         * @var Collection<RentData>
+         * @typescript RentData[]
+         */
+        public Collection $rents = new Collection(),
+        /**
+         * @var Collection<BookData>
+         * @typescript BookData[]
+         */
+        public Collection $wishList = new Collection(),
         public ?string $phoneNumber = null,
         public ?string $firstName = null,
         public ?string $lastName = null,

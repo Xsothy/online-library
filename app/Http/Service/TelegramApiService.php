@@ -28,6 +28,6 @@ class TelegramApiService extends Api
      */
     public function sendPhoto(array $params): Message
     {
-        return parent::sendPhoto($params);
+        return parent::sendDocument($params);
     }
 }
