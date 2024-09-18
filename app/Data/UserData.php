@@ -68,4 +68,13 @@ class UserData extends Data
             'idCardBack' => ['nullable', 'image', 'max:1024'],
         ];
     }
+
+    public function toArray(): array
+    {
+        return [
+            parent::toArray(),
+            'first_name' => $this->firstName,
+            'last_name' => $this->lastName
+        ];
+    }
 }

@@ -194,6 +194,7 @@ Route::group(['prefix' => 'book'], function () use ($books, $genres) {
         })->name('book.reserve');
         Route::post('/{id}/rent', [BookController::class, 'createRent'])->name('book.rent.create');
         Route::post('/{id}/reserve', [BookController::class, 'createReserve'])->name('book.reserve.create');
+        Route::post('/{id}/wish', [BookController::class, 'toggleWish'])->name('book.wish.toggle');
     });
 });
 

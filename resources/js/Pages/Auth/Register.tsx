@@ -16,6 +16,9 @@ export default function Register() {
         | 'attachments'
         | 'kycStatus'
         | 'emailVerifiedAt'
+        | 'reservations'
+        | 'rents'
+        | 'wishList'
     > & {
         password: string
         password_confirmation: string
