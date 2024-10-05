@@ -19,4 +19,17 @@ class InventoryData extends Data
     )
     {
     }
+
+    public function toModel(): \App\Models\Inventory
+    {
+        return new \App\Models\Inventory([
+            'quantity' => $this->quantity,
+            'price' => $this->price,
+            'rent_price' => $this->rentPrice,
+            'created_by' => $this->createdBy?->id,
+            'updated_by' => $this->updatedBy?->id,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt,
+        ]);
+    }
 }

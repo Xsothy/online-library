@@ -8,6 +8,7 @@ use App\Data\CommentData;
 use App\Data\ReviewData;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
+use App\Providers\ActionRouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Carbon;
 
@@ -216,6 +217,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/rent-history', [ProfileController::class, 'rentHistory'])->name('profile.rent-history');
     });
 });
+
+Route::middleware(['auth'])
+    ->group(function () {
+        (new ActionRouteServiceProvider(app()))->boot();
+    });
 
 require __DIR__.'/auth.php';
 require __DIR__.'/api.php';

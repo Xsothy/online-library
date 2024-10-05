@@ -6,6 +6,7 @@ import AppLayout from '@/Layouts/AppLayout'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card"
 import { Button } from "@/Components/ui/button"
 import { Badge } from "@/Components/ui/badge"
+import {App} from "@/types/generated";
 
 interface ReservePageProps extends PageProps {
     book: App.Data.BookData
@@ -17,6 +18,7 @@ export default function ReservePage({ book }: ReservePageProps) {
     const handleReserve = () => {
         setIsReserving(true)
         router.post(route('book.reserve.create', book.id))
+        setIsReserving(false)
     }
 
     return (

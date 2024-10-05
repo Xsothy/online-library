@@ -2,6 +2,7 @@
 
 namespace App\Data;
 
+use App\Models\Review;
 use Carbon\Carbon;
 use Spatie\LaravelData\Data;
 
@@ -15,5 +16,15 @@ class ReviewData extends Data
         public ?Carbon $updatedAt = null
     )
     {
+    }
+
+    public function toModel(): Review
+    {
+        return new Review([
+            'rating' => $this->rating,
+            'created_by' => $this->createdBy->id,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt,
+        ]);
     }
 }

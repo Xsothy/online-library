@@ -2,6 +2,7 @@
 
 namespace App\Data;
 
+use App\Models\Comment;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
@@ -21,5 +22,15 @@ class CommentData extends Data
         public ?Carbon $updatedAt = null,
     )
     {
+    }
+
+    public function toModel(): Comment
+    {
+        return new Comment([
+            'body' => $this->body,
+            'created_by' => $this->createdBy->id,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt
+        ]);
     }
 }

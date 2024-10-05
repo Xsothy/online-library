@@ -15,10 +15,10 @@ class BookFactory extends Factory
         return [
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'title' => $this->faker->word(),
+            'title' => $this->faker->sentence(3),
             'description' => $this->faker->text(),
             'author_id' => $this->faker->randomNumber(),
-            'publishedAt' => Carbon::now(),
+            'publishedAt' => Carbon::now()
         ];
     }
 }

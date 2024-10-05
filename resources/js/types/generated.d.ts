@@ -1,3 +1,17 @@
+declare namespace App.Action {
+    export type BookRent = {
+        id: number;
+        duration: number;
+    };
+    export type Test = {
+        name: string;
+    };
+}
+declare namespace App.Action.Tests {
+    export type Test = {
+        name: string;
+    };
+}
 declare namespace App.Data {
     export type AttachmentData = {
         id: number;
@@ -134,3 +148,8 @@ declare namespace App.Enum {
         | "danger"
         | "info";
 }
+export type ActionTypeMap = {
+    "book-rent": App.Action.BookRent;
+    test: App.Action.Test;
+    "tests.test": App.Action.Tests.Test;
+};

@@ -2,6 +2,7 @@
 
 namespace App\Data;
 
+use App\Models\Book;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\Computed;
@@ -41,5 +42,19 @@ class BookData extends Data
     )
     {
         $this->isAvailable = $inventories->some(fn (InventoryData $inventory) => $inventory->quantity > 0);
+    }
+
+    public function toModel(): Book
+    {
+//        'title',
+//        'description',
+//        'author_id',
+//        'publishedAt',
+        $book = new Book();
+        $book->title = $this->title;
+        $book->description = $this->description;
+        $book->author_id = 1;
+        $book->publishedAt = $this->publishedAt;
+        return $book;
     }
 }

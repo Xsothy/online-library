@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('wish', function (Blueprint $table) {
             $table->id();
             $table->foreignId('book_id')->constrained();
-            $table->foreignId('created_by')->constrained();
+            $table->foreignId('created_by');
             $table->timestamps();
         });
     }

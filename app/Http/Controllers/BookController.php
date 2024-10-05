@@ -34,7 +34,7 @@ class BookController extends Controller
         ]);
     }
 
-    public function createReserve(int $id)
+    public function createReserve(Request $request, int $id)
     {
         $book = Book::findOrFail($id);
 
