@@ -4,11 +4,10 @@ namespace App\Admin\Fields;
 
 use App\Admin\Field;
 
-class NumberField extends Field
+class PhoneField extends Field
 {
     public function getVariant(): string
     {
-        return 'Number';
+        return 'Phone';
     }
 }
-

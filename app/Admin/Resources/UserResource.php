@@ -3,7 +3,7 @@
 namespace App\Admin\Resources;
 
 use App\Admin\Resource;
-use App\Admin\Fields\TextField;
+use App\Admin\Fields\InputField;
 use App\Models\User;
 
 class UserResource extends Resource
@@ -13,9 +13,9 @@ class UserResource extends Resource
     public function __construct()
     {
         $this->registerFields([
-            TextField::make('name')->searchable()->sortable(),
-            TextField::make('email')->searchable()->sortable(),
-            TextField::make('kycStatus')->default('pending')->sortable(),
+            InputField::make('name')->searchable()->sortable(),
+            InputField::make('email')->searchable()->sortable(),
+            InputField::make('kycStatus')->default('pending')->sortable(),
         ]);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Admin\Resources;
 
 use App\Admin\Resource;
-use App\Admin\Fields\TextField;
+use App\Admin\Fields\InputField;
 use App\Admin\Fields\NumberField;
 use App\Models\Author;
 use App\Models\Book;
@@ -17,7 +17,7 @@ class AuthorResource extends Resource
     public function __construct()
     {
         $this->registerFields([
-            TextField::make('name')->searchable()->sortable(),
+            InputField::make('name')->searchable()->sortable(),
         ]);
     }
 }

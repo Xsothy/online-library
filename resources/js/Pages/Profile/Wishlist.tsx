@@ -1,10 +1,10 @@
 import ProfileLayout from '@/Layouts/ProfileLayout'
 import { Button } from "@/Components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card"
-import { PageProps } from '@/types'
+import {PageProps} from "@/types";
 
 export default function Wishlist({ auth }: PageProps<{ auth: App.Data.AuthData }>) {
-    const wishlistItems: App.Data.BookData[] = auth.user.wishList
+    const wishlistItems = auth.user.wishList
 
     return (
         <ProfileLayout title="My Wishlist" auth={auth}>

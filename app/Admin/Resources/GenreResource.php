@@ -3,7 +3,7 @@
 namespace App\Admin\Resources;
 
 use App\Admin\Resource;
-use App\Admin\Fields\TextField;
+use App\Admin\Fields\InputField;
 use App\Admin\Fields\NumberField;
 use App\Models\Book;
 use App\Models\Genre;
@@ -16,8 +16,8 @@ class GenreResource extends Resource
     public function __construct()
     {
         $this->registerFields([
-            TextField::make('name')->searchable()->sortable(),
-            TextField::make('description')->searchable()->sortable(),
+            InputField::make('name')->searchable()->sortable(),
+            InputField::make('description')->searchable()->sortable(),
         ]);
     }
 }

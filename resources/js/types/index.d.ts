@@ -1,6 +1,5 @@
-import {App} from "@/types/generated";
-
-export interface User extends App.Data.UserData {}
+export interface User extends App.Data.UserData {
+}
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & App.Data.ShareData;
 
@@ -10,15 +9,7 @@ export type Resource = {
     label: string;
     pluralLabel: string;
     uriKey: string;
-    fields: Array<{
-        name: string;
-        label: string;
-        default: any;
-        type: string;
-        sortable: boolean;
-        searchable: boolean;
-        rules: Array<string>;
-    }>;
+    fields: FormFieldType[];
 };
 
 export type ResourceData = {
@@ -26,9 +17,7 @@ export type ResourceData = {
     [key: string]: any;
 };
 
-export type FormFieldType = {
-    type: string
-    variant: string
+export type BaseFieldType = {
     name: string
     label: string
     placeholder?: string
@@ -48,6 +37,13 @@ export type FormFieldType = {
     min?: number
     max?: number
     step?: number
+    sortable: boolean
+    searchable: boolean
 }
 
-export type FieldType = { name: string; isNew: boolean; index?: number }
+export type FormFieldType = ({
+    variant: 'Label' |'Checkbox' | 'Combobox' | 'Date Picker' | 'Datetime Picker' | 'Input OTP' | 'Location Input' | 'Multi Select' | 'Number' | 'Select' | 'Slider' | 'Signature Input' | 'Smart Datetime Input' | 'Switch' | 'Tags Input' | 'Textarea' | 'File Input' | 'Password' | 'Phone';
+} & BaseFieldType) | ({
+    type: string
+    variant: 'Input'
+} & BaseFieldType)

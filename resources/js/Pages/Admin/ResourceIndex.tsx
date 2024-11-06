@@ -39,7 +39,7 @@ const AdminIndex = ({resources, resource}: {
                 )
             },
             cell: ({row}) => {
-                return row.getValue(field.name) ?? field.default;
+                return row.getValue(field.name) ?? field.value;
             },
             enableSorting: field.sortable,
             enableColumnFilter: field.searchable,
