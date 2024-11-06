@@ -7,7 +7,6 @@ import { Button } from "@/Components/ui/button"
 import { Input } from "@/Components/ui/input"
 import { Label } from "@/Components/ui/label"
 import { Badge } from "@/Components/ui/badge"
-import {App} from "@/types/generated";
 import {useAction} from "@/hooks/action.hook";
 import {cn} from "@/lib/utils";
 

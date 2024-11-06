@@ -4,7 +4,7 @@ import { Button } from "@/Components/ui/button"
 import { PageProps } from '@/types'
 
 export default function ReservationList({ auth }: PageProps<{ auth: App.Data.AuthData }>) {
-    const reservations = auth?.user?.reservations || []
+    const reservations:  App.Data.ReservationData[] = auth?.user?.reservations || []
 
     return (
         <ProfileLayout title="My Reservations" auth={auth}>

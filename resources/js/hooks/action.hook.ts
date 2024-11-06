@@ -1,6 +1,6 @@
 // Define a utility type that resolves the correct type based on the namespace
 import {useForm} from "@inertiajs/react";
-import {ActionTypeMap} from "@/types/generated";
+import ActionTypeMap = App.Action.ActionTypeMap;
 
 type ActionParams<Namespace extends keyof ActionTypeMap> = ActionTypeMap[Namespace];
 

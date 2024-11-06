@@ -17,7 +17,7 @@
         "baseUrl": ".",
         "typeRoots": ["./node_modules/@types", ],
         "maxNodeModuleJsDepth": 0,
-        "skipLibCheck": true,
+        "skipLibCheck": true
     },
     "include": ["resources/js/**/*.ts", "resources/js/**/*.tsx", "resources/js/**/*.d.ts"]
 }

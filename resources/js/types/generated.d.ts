@@ -1,5 +1,3 @@
-declare namespace App {
-}
 declare namespace App.Action {
     export type BookRent = {
         id: number;
@@ -150,8 +148,10 @@ declare namespace App.Enum {
         | "danger"
         | "info";
 }
-export type ActionTypeMap = {
-    "book-rent": App.Action.BookRent;
-    test: App.Action.Test;
-    "tests.test": App.Action.Tests.Test;
-};
+declare namespace App.Action {
+    export type ActionTypeMap = {
+        "book-rent": App.Action.BookRent;
+        test: App.Action.Test;
+        "tests.test": App.Action.Tests.Test;
+    };
+}

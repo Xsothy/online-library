@@ -3,7 +3,7 @@ import ProfileLayout from '@/Layouts/ProfileLayout'
 import { PageProps } from '@/types'
 
 export default function RentHistory({ auth }: PageProps<{ auth: App.Data.AuthData }>) {
-    const rentHistory = auth.user.rents
+    const rentHistory: App.Data.RentData[] = auth.user.rents
 
     return (
         <ProfileLayout title="Rent History" auth={auth}>

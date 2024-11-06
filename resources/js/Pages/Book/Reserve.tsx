@@ -6,7 +6,6 @@ import AppLayout from '@/Layouts/AppLayout'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card"
 import { Button } from "@/Components/ui/button"
 import { Badge } from "@/Components/ui/badge"
-import {App} from "@/types/generated";
 
 interface ReservePageProps extends PageProps {
     book: App.Data.BookData

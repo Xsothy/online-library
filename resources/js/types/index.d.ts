@@ -1,3 +1,5 @@
+import {App} from "@/types/generated";
+
 export interface User extends App.Data.UserData {}
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & App.Data.ShareData;
@@ -20,5 +22,7 @@ export type Resource = {
 };
 
 export type ResourceData = {
+    id: number;
     [key: string]: any;
-}
+};
+

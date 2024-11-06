@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/Componen
 import { PageProps } from '@/types'
 
 export default function Wishlist({ auth }: PageProps<{ auth: App.Data.AuthData }>) {
-    const wishlistItems = auth.user.wishList
+    const wishlistItems: App.Data.BookData[] = auth.user.wishList
 
     return (
         <ProfileLayout title="My Wishlist" auth={auth}>

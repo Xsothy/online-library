@@ -14,6 +14,7 @@ class TypeDefinitionActionWriter extends TypeDefinitionWriter
 
         $output = parent::format($collection);
 
+        $output .= "declare namespace App.Action {" . PHP_EOL;
         $output .= "export type ActionTypeMap = {" . PHP_EOL;
         $toKeyActionType = function (TransformedType $type) {
             return \Str::of($type->reflection->getName())->replaceStart('App\\Action\\', '')->replace('\\', '.')->replaceEnd('Action', '')->snake()
@@ -32,6 +33,7 @@ class TypeDefinitionActionWriter extends TypeDefinitionWriter
         }
 
         $output .= PHP_EOL . "};" . PHP_EOL;
+        $output .= "}" . PHP_EOL;
 
         return $output;
     }
