@@ -9,7 +9,7 @@ import NavbarAction from "@/Components/NavbarAction";
 import NavList from "@/Components/NavList";
 import AppFooter from "@/Components/AppFooter";
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export default function thzAppLayout({ children }: { children: React.ReactNode }) {
     const { props, component } = usePage<PageProps>()
     const { auth, config, flash } = props
 

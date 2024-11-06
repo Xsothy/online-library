@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import { router } from '@inertiajs/react'
-import { PageProps } from '@/types'
+import React, {useState} from 'react'
+import {router} from '@inertiajs/react'
+import {PageProps} from '@/types'
 import AppLayout from '@/Layouts/AppLayout'
 import BookCard from '@/Pages/Book/Partials/BookCard'
 import LayoutToggle from '@/Pages/Book/Partials/LayoutToggle'
-import { Input } from "@/Components/ui/input"
-import { Checkbox } from "@/Components/ui/checkbox"
-import { Label } from "@/Components/ui/label"
-import { Button } from "@/Components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select"
-import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
+import {Input} from "@/Components/ui/input"
+import {Checkbox} from "@/Components/ui/checkbox"
+import {Label} from "@/Components/ui/label"
+import {Button} from "@/Components/ui/button"
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/Components/ui/select"
+import {Card, CardContent, CardHeader, CardTitle} from "@/Components/ui/card"
 
 interface BookIndexProps extends PageProps {
     books: App.Data.BookData[]
     genres: App.Data.GenreData[]
 }
 
-export default function BookIndex({ books, genres }: BookIndexProps) {
+export default function BookIndex({books, genres}: BookIndexProps) {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([])
     const [searchTerm, setSearchTerm] = useState('')
     const [layout, setLayout] = useState<'grid' | 'list'>('grid')
@@ -67,9 +67,10 @@ export default function BookIndex({ books, genres }: BookIndexProps) {
                             </div>
                             <div className="space-y-2">
                                 <h3 className="text-lg font-semibold">Availability</h3>
-                                <Select value={availability} onValueChange={(value: 'all' | 'available' | 'unavailable') => setAvailability(value)}>
+                                <Select value={availability}
+                                        onValueChange={(value: 'all' | 'available' | 'unavailable') => setAvailability(value)}>
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select availability" />
+                                        <SelectValue placeholder="Select availability"/>
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="all">All</SelectItem>
@@ -82,7 +83,7 @@ export default function BookIndex({ books, genres }: BookIndexProps) {
                                 <h3 className="text-lg font-semibold">Sort By</h3>
                                 <Select value={sortBy} onValueChange={(value: 'name' | 'rating') => setSortBy(value)}>
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select sort option" />
+                                        <SelectValue placeholder="Select sort option"/>
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="name">Name</SelectItem>
@@ -103,11 +104,12 @@ export default function BookIndex({ books, genres }: BookIndexProps) {
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="w-full max-w-sm"
                         />
-                        <LayoutToggle layout={layout} setLayout={setLayout} />
+                        <LayoutToggle layout={layout} setLayout={setLayout}/>
                     </div>
-                    <div className={`grid gap-6 ${layout === 'grid' ? 'sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+                    <div
+                        className={`grid gap-6 ${layout === 'grid' ? 'sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
                         {books.map((book) => (
-                            <BookCard key={book.id} book={book} layout={layout} />
+                            <BookCard key={book.id} book={book} layout={layout}/>
                         ))}
                     </div>
                 </div>

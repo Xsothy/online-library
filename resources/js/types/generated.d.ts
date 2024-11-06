@@ -1,3 +1,5 @@
+declare namespace App {
+}
 declare namespace App.Action {
     export type BookRent = {
         id: number;

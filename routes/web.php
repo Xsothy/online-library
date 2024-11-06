@@ -11,6 +11,13 @@ use App\Http\Controllers\ProfileController;
 use App\Providers\ActionRouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Carbon;
+use App\Http\Controllers\Admin\ResourceIndexController;
+use App\Http\Controllers\Admin\ResourceCreateController;
+use App\Http\Controllers\Admin\ResourceStoreController;
+use App\Http\Controllers\Admin\ResourceShowController;
+use App\Http\Controllers\Admin\ResourceEditController;
+use App\Http\Controllers\Admin\ResourceUpdateController;
+use App\Http\Controllers\Admin\ResourceDestroyController;
 
 $users = collect([
     new UserData(1, 'John Doe', 'john@example.com'),
@@ -38,12 +45,12 @@ $books = collect([
             new InventoryData(2, 2, 12.99, 2.49)
         ]),
         $genres->random(rand(1, 5)), collect([
-            new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-        ]),
+        new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+    ]),
         collect([
             new ReviewData(1, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
             new ReviewData(2, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
@@ -63,12 +70,12 @@ $books = collect([
             new InventoryData(2, 2, 12.99, 2.49)
         ]),
         $genres->random(rand(1, 5)), collect([
-            new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-        ]),
+        new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+    ]),
         collect([
             new ReviewData(1, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
             new ReviewData(2, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
@@ -85,12 +92,12 @@ $books = collect([
         new Carbon('2022-01-01'),
         collect(),
         $genres->random(rand(1, 5)), collect([
-            new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-        ]),
+        new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+    ]),
         collect([
             new ReviewData(1, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
             new ReviewData(2, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
@@ -110,12 +117,12 @@ $books = collect([
             new InventoryData(2, 2, 12.99, 2.49)
         ]),
         $genres->random(rand(1, 5)), collect([
-            new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-        ]),
+        new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+    ]),
         collect([
             new ReviewData(1, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
             new ReviewData(2, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
@@ -135,12 +142,12 @@ $books = collect([
             new InventoryData(2, 2, 12.99, 2.49)
         ]),
         $genres->random(rand(1, 5)), collect([
-            new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-            new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
-        ]),
+        new CommentData(1, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(2, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(3, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(4, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+        new CommentData(5, 'John Doe', $users->random(1)->first(), new Carbon('2022-01-01')),
+    ]),
         collect([
             new ReviewData(1, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
             new ReviewData(2, rand(1, 5), $users->random(1)->first(), new Carbon('2022-01-01')),
@@ -158,6 +165,7 @@ Route::inertia('/', 'Home', [
     'popularBooks' => $books->random(5),
     'genres' => $genres,
 ])->name('home');
+//Route::inertia('/', 'Welcome');
 
 Route::group(['prefix' => 'book'], function () use ($books, $genres) {
     Route::inertia('/', 'Book/index', [
@@ -165,7 +173,7 @@ Route::group(['prefix' => 'book'], function () use ($books, $genres) {
         'genres' => $genres,
     ])->name('book.index');
     Route::get('/{id}', function (int $id) use ($books) {
-        $book = collect($books)->first(fn ($book) => $book->id === $id);
+        $book = collect($books)->first(fn($book) => $book->id === $id);
         if (!$book) {
             abort(404);
         }
@@ -216,12 +224,28 @@ Route::middleware('auth')->group(function () {
         Route::get('/reservations', [ProfileController::class, 'reservations'])->name('profile.reservations');
         Route::get('/rent-history', [ProfileController::class, 'rentHistory'])->name('profile.rent-history');
     });
+
+    Route::group(['prefix' => 'admin'], function () {
+        Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+    });
 });
 
-Route::middleware(['auth'])
+Route::middleware(['auth'])->group(function () {
+    (new ActionRouteServiceProvider(app()))->boot();
+});
+
+Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])
+    ->prefix('admin')
     ->group(function () {
-        (new ActionRouteServiceProvider(app()))->boot();
+        Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/{resource}', ResourceIndexController::class)->name('admin.resource.index');
+        Route::get('/{resource}/create', ResourceCreateController::class)->name('admin.resource.create');
+        Route::post('/{resource}/store', ResourceStoreController::class)->name('admin.resource.store');
+        Route::get('/{resource}/{resourceId}', ResourceShowController::class)->name('admin.resource.show');
+        Route::get('/{resource}/{resourceId}/edit', ResourceEditController::class)->name('admin.resource.edit');
+        Route::put('/{resource}/{resourceId}', ResourceUpdateController::class)->name('admin.resource.update');
+        Route::delete('/{resource}/{resourceId}', ResourceDestroyController::class)->name('admin.resource.destroy');
     });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/api.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/api.php';
