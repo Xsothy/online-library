@@ -1,0 +1,1 @@
+import{j as n}from"./app-K2H9zMxD.js";import{B as s}from"./button-nR3dS6I0.js";import"./utils-DnNDQBbQ.js";function m({bookId:i,onReserve:t,isReserving:e,setIsReserving:o}){const r=()=>{o(!0),t()};return n.jsx(s,{onClick:r,disabled:e,children:e?"Reserving...":"Reserve"})}export{m as default};
